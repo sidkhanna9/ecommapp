@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+
+
+
 
 void main() => runApp(MyApp());
 
@@ -23,7 +29,8 @@ class LoginPage extends StatefulWidget{
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
   AnimationController _iconAnimationController;
   Animation<double> _iconAnimation;
-
+  final passwordController=TextEditingController();
+  final emailController=TextEditingController();
   @override
   void initState(){
     super.initState();
@@ -38,11 +45,45 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
     _iconAnimation.addListener(()=> this.setState((){}));
     _iconAnimationController.forward();
   }
+
+
+
+
+
+
+  Future<String> getData() async {
+
+
+// Map<String,dynamic> jsonMap ={
+// 'email':emailController.text,
+// 'password':passwordController.text
+// };
+
+print(emailController.text);
+
+print(passwordController.text);
+
+
+http.Response response = await http.post("http://172.16.20.87:8080/auth/login",
+headers: {
+  "Content-Type":"application/json"
+},
+body: "{\"emailId\":" +"\""+emailController.text+"\"" + ",\"password\":"+"\""+passwordController.text+"\"}",
+);
+
+print(response.body);
+
+} 
+
+
   @override
   Widget build(BuildContext context){
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
+      
       backgroundColor: Colors.black,
-      body: new Stack(
+      
+      body: new Stack(fit: StackFit.expand,
         children: <Widget>[
           new Image(
             image: new AssetImage("assets/cool-htc-one-wallpapers-4310228.png"),
@@ -75,12 +116,14 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                     children: <Widget>[
 
                 new TextFormField(
+                  controller: emailController,
                     decoration: new InputDecoration(
                       labelText: "Enter Email",
                     ),
                     keyboardType: TextInputType.emailAddress,
                 ),
                 new TextFormField(
+                  controller: passwordController,
                     decoration: new InputDecoration(
                       labelText : "Enter Password",
                     ),
@@ -94,7 +137,7 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Login"),
-                  onPressed: ()=>{},
+                  onPressed: getData,
                   splashColor: Colors.redAccent,
                 ),
                     ],
