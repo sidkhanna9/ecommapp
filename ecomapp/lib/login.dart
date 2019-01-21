@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecomapp/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -84,7 +85,10 @@ if(jsonData['status'])
         backgroundColor: Colors.grey,
         textColor: Colors.white
     );
-  Navigator.push(context, MaterialPageRoute(builder:(context){}));
+  Navigator.push(context, MaterialPageRoute(builder:(context){
+
+    return HomePage();
+  }));
 
 
 
@@ -215,10 +219,6 @@ mainAxisSize: MainAxisSize.min,
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
-  }
+
 
   
