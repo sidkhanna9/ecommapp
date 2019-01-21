@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,11 +22,16 @@ class LoginPage extends StatefulWidget{
 }
 
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
+
+
   AnimationController _iconAnimationController;
   Animation<double> _iconAnimation;
   FocusNode fn=new FocusNode();
   final passwordController=TextEditingController();
   final emailController=TextEditingController();
+
+
+
   @override
   void initState(){
     super.initState();
@@ -66,9 +73,34 @@ body: "{\"emailId\":" +"\""+emailController.text+"\"" + ",\"password\":"+"\""+pa
 );
 
 print(response.body);
+var jsonData=json.decode(response.body);
+if(jsonData['status'])
+{
+  Fluttertoast.showToast(
+        msg: "Login Success",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+  Navigator.push(context, MaterialPageRoute(builder:(context){}));
+
+
+
+}
+else{
+  Fluttertoast.showToast(
+        msg: "Login Failed"  +jsonData['message'],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white);
+
 
 } 
-
+  }
 
   @override
   Widget build(BuildContext context){
@@ -182,3 +214,11 @@ mainAxisSize: MainAxisSize.min,
     );
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return null;
+  }
+
+  
