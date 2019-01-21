@@ -22,6 +22,7 @@ class LoginPage extends StatefulWidget{
 class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin{
   AnimationController _iconAnimationController;
   Animation<double> _iconAnimation;
+  FocusNode fn=new FocusNode();
   final passwordController=TextEditingController();
   final emailController=TextEditingController();
   @override
@@ -109,6 +110,10 @@ print(response.body);
                     children: <Widget>[
 
                 new TextFormField(
+                  // focusNode: fn,
+                  onFieldSubmitted: (term){ 
+                    FocusScope.of(context).requestFocus(fn);
+                    },
                   controller: emailController,
                     decoration: new InputDecoration(
                       labelText: "Enter Email",
@@ -116,6 +121,10 @@ print(response.body);
                     keyboardType: TextInputType.emailAddress,
                 ),
                 new TextFormField(
+                  focusNode: fn,
+                  onFieldSubmitted: (term){
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  },
                   controller: passwordController,
                     decoration: new InputDecoration(
                       labelText : "Enter Password",

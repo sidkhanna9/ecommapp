@@ -149,7 +149,7 @@ runApp(Login());
                     decoration: new InputDecoration(
                       labelText: "Enter Phone no",
                     ),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                 ),
                 new TextFormField(
                   controller: passwordController,
