@@ -126,13 +126,41 @@ print(response.body);
                 new Padding(
                 padding: const EdgeInsets.only(top: 20.0)
                 ),
-                new MaterialButton(
+                //start
+                new ButtonTheme.bar(
+                  
+                   child: new ButtonBar(
+mainAxisSize: MainAxisSize.min,
+           // mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+                 new RaisedButton(
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Login"),
                   onPressed: getData,
                   splashColor: Colors.redAccent,
-                ),
+
+                )
+                ,
+                 new RaisedButton(
+                  color: Colors.teal,
+                  textColor: Colors.white,
+                  child: new Text("Signup"),
+                  onPressed: getData,
+                  splashColor: Colors.redAccent,
+                )
+                
+            ]
+                )
+                )
+                //end
+                // new MaterialButton(
+                //   color: Colors.teal,
+                //   textColor: Colors.white,
+                //   child: new Text("Login"),
+                //   onPressed: getData,
+                //   splashColor: Colors.redAccent,
+                // ),
                     ],
                 ),
                   ),
