@@ -1,12 +1,12 @@
+import 'package:ecomapp/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
-import 'dart:convert';
 
 
 
 
-void main() => runApp(MyApp());
+void main() => runApp(Products());
 
 class MyApp extends StatelessWidget {
   @override 
