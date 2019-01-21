@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ecomapp/model.dart';
 import 'package:ecomapp/image_card.dart';
-import 'dart:ui' as ui;
 
 class ProductDetailPage extends StatelessWidget{
+
   ProductDetailPage(this.product);
   final Product product;
   
@@ -93,8 +93,6 @@ class ProductDetailPage extends StatelessWidget{
     );
   }
 
-  Widget _buildButton(){
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,24 +104,44 @@ class ProductDetailPage extends StatelessWidget{
             image: new AssetImage("assets/2.jpg"),
             fit: BoxFit.fitHeight,
           ),
+          new Column(
+            children: <Widget>[
+            _buildContent(),
+        //   new MaterialButton(
+        //           color: Colors.black,
+        //           textColor: Colors.white,
+        //           child: new Text("Add to Cart"),
+        //           onPressed: ()=>{},
+        //           splashColor: Colors.redAccent,
+        //         ),
+        // new MaterialButton(
+        //           color: Colors.black,
+        //           textColor: Colors.white,
+        //           child: new Text("Add to Wishlist"),
+        //           onPressed: ()=>{},
+        //           splashColor: Colors.redAccent,
+        //           //animationDuration: Duration(milliseconds: 500)
+        //         ),
+    //           new MaterialButton(
+    //               color: Colors.black,
+    //               textColor: Colors.white,
+    //               child: new Text("Add to Cart"),
+    //               onPressed: ()=>{},
+    //               splashColor: Colors.redAccent,
+    //             ),
+    // new MaterialButton(
+    //               color: Colors.black,
+    //               textColor: Colors.white,
+    //               child: new Text("Add to Wishlist"),
+    //               onPressed: ()=>{},
+    //               splashColor: Colors.redAccent,
+    //               //animationDuration: Duration(milliseconds: 500)
+    //             ),
+             ],
+          ),
 
-    new MaterialButton(
-                  color: Colors.black,
-                  textColor: Colors.white,
-                  child: new Text("Add to Cart"),
-                  //onPressed: getData,
-                  splashColor: Colors.redAccent,
-                ),
-    new MaterialButton(
-                  color: Colors.black,
-                  textColor: Colors.white,
-                  child: new Text("Add to Wishlist"),
-                  //onPressed: getData,
-                  splashColor: Colors.redAccent,
-                ),
            // color: Colors.black87,
             //colorBlendMode: BlendMode.lighten,
-            _buildContent()
         ],
       ),
     );
