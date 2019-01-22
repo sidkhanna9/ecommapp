@@ -13,7 +13,7 @@ String signUpURL="";
 String searchURL="http://10.177.7.88:7000/search/all/";
 String searchQuery;
 String productFetchUrl;
-String productId;
+String productId,laptopURL,accPhone,phoneURL,furnitureURL,watchURL,clothURL,shoeURL,jewelry;
 
 Map<String,String> postHeader={
   

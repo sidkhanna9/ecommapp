@@ -5,11 +5,11 @@ import 'package:ecomapp/searchhandler/MiniProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ecomapp/themedata/Theme.dart' as theme;
-
+import 'package:ecomapp/product/product_details_page.dart';
 class ProductRow extends StatelessWidget{
   MiniProduct mini;
     ProductRow({this.mini});
-    Product arg;
+  
  
   @override
   Widget build(BuildContext context) {
@@ -86,6 +86,10 @@ final productCard = new Container(
        onPressed: (){
         gb.productId= mini.productId;
         getdata();
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+            return ProductDetailPage();
+
+        }));
        },
         
         child: new Stack(
@@ -103,28 +107,23 @@ final productCard = new Container(
 Future<String> getdata() async{
 http.Response response= await http.get(Uri.encodeFull(gb.productFetchUrl),headers: gb.getHeader);
 var jsonData=json.decode(response.body);
-gb.product.id=jsonData[''];
-gb.product.images=jsonData[''];
-gb.product.name=jsonData['productName'];
-gb.product.description=jsonData['description'];
-gb.product.features=jsonData['keyFeatures'];
-gb.product.rating=jsonData['rating'];
+if(response.statusCode==200){
+gb.product.productId=jsonData[''];
+gb.product.productRating=jsonData[''];
+gb.product.name=jsonData[''];
 gb.product.avatar=jsonData[''];
+gb.product.description=jsonData[''];
+gb.product.features=jsonData[''];
+gb.product.cost=jsonData[''];
+gb.product.merchantId=jsonData[''];
+gb.product.quantityLeftMerchant=jsonData[''];
+gb.product.imageURLList=jsonData[''];
+gb.product.merchantrating=jsonData[''];
+gb.product.merchantName=jsonData[''];
 
-/*
 
-  Product({
-    @required this.id,
-    @required this.name,
-    @required this.avatar,
-    @required this.description,
-    @required this.features,
-    @required this.rating,
-    @required this.images,
-  });
 
- */
-
+}
 
 }
 }

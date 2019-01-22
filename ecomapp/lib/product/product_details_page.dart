@@ -1,13 +1,14 @@
 import 'dart:ui' as ui;
+import 'package:ecomapp/product/model.dart';
+import 'package:ecomapp/themedata/image_card.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:ecomapp/themedata/Theme.dart' as Theme;
 
 class ProductDetailPage extends StatelessWidget{
 
-  ProductDetailPage(this.product);
-  final Product product;
-  
+   Product product=gb.product;
+  var itemSelect;
   Widget _buildContent(){
     return SingleChildScrollView(
       child: Column(
@@ -32,11 +33,28 @@ class ProductDetailPage extends StatelessWidget{
       margin: const EdgeInsets.only(top: 32.0,left: 16.0),
       padding: const EdgeInsets.all(3.0),
       child: ClipOval(
-        child: Image.asset(product.avatar),
+        child: Image.asset(gb.product.avatar),
       ),
     );
   }
 
+Widget _createDropDown(){
+return DropdownButton<int>(
+            hint: new Text("Select Quantity"),
+
+            items: new List<DropdownMenuItem<int>>.generate(
+          gb.product.,
+          (int index) => new DropdownMenuItem<int>(
+                value: index,
+                child: new Text(index.toString()),
+              ),
+        ),
+        onChanged: (int value) {
+          this.itemSelect=value;
+        },
+        value:itemSelect,
+        );
+}
   Widget _buildInfo(){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, left: 16.0, right:16.0),
@@ -44,7 +62,7 @@ class ProductDetailPage extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            product.name,
+            gb.product.name,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -56,7 +74,7 @@ class ProductDetailPage extends StatelessWidget{
           new Icon(Icons.star, size: 14.0,
                   color: Colors.black),
                   new Text(
-                  product.rating,
+                  gb.product.productRating,
             style:TextStyle(
               color:Colors.black.withOpacity(0.85),
               fontWeight: FontWeight.w500,
@@ -69,24 +87,27 @@ class ProductDetailPage extends StatelessWidget{
             margin: const EdgeInsets.symmetric(vertical: 16.0),
             width: 225.0,
             height: 1.0,
-          ),DropdownButton<String>(
+          ),
+
+          DropdownButton<String>(
             hint: new Text("Select Merchant"),
-            
-  items: <String>['A', 'B', 'C', 'D'].map((String value) {
-    return new DropdownMenuItem<String>(
-      value: value,
-      child: new Text(value,
-      style: TextStyle(
-              color: Colors.black.withOpacity(0.85),
-              height: 1.4,
-            ),
-      ),
-    );
-  }).toList(),
-  onChanged: (_) {},
-),
+
+            items: new List<DropdownMenuItem<String>>.generate(
+          gb.product.merchantName.length,
+          (int index) => new DropdownMenuItem<String>(
+                value: gb.product.merchantName[index]+"("+gb.product.cost[index].toString()+
+                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString()+"\tRating:"+gb.product.merchantrating[index].toString(),
+                child: new Text(index.toString()),
+              ),
+        ),
+        onChanged: (String value) {
+          this.itemSelect=value;
+          _createDropDown();
+        },
+        value:itemSelect,
+        ),
           Text(
-            "Description:\n"+product.description+"Features:\n"+product.features,
+            "Description:\n"+gb.product.description+"Features:\n"+gb.product.features,
             style: TextStyle(
               color: Colors.black.withOpacity(0.85),
               height: 1.4,
@@ -105,9 +126,9 @@ class ProductDetailPage extends StatelessWidget{
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          itemCount: product.images.length,
+          itemCount: gb.product.imageURLList.length,
           itemBuilder: (BuildContext context,int index){
-            var image=product.images[index];
+            var image=gb.product.imageURLList[index];
             return ImageCard(image);
           },
         ),

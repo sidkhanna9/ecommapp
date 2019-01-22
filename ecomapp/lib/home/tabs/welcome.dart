@@ -32,7 +32,41 @@ class Welcome extends StatelessWidget{
   }
 
   class DukaanState extends State<DukaanHome>{
- 
+ List<String> image=[gb.laptopURL,gb.accPhone,gb.phoneURL,gb.furnitureURL,gb.watchURL,gb.clothURL,gb.shoeURL,gb.jewelry];
+List<String> name=["lap","acc","pho","fur","wa","cl","sh","jew",];
+   Widget appTitle=new Text("Dukaan.com");
+
+
+
+List<Widget> _buildCategory(){
+    List<Widget> containers=new List<Widget>.generate(8,
+    (int index){
+        final imageName=image[index];
+      return GestureDetector(
+        
+        onTap: (){
+
+        },
+        child:  Container(   
+child:new Column(children:
+  <Widget>[
+           Image.network(imageName, 
+        fit: BoxFit.cover,
+        height: 150.0,
+        width: 150.0,
+        ),
+Text(name[index]),
+        ]
+      )
+      )
+      );
+    }
+    );
+    return containers;
+    }
+
+
+    
 Future<String> getData() async{
 
   if(gb.searchQuery!=""){
@@ -80,26 +114,26 @@ Fluttertoast.showToast(
   return "";
   }
 
-Widget appTitle=new Text("Dukaan.com");
+//Widget appTitle=new Text("Dukaan.com");
   Icon ic=new Icon(Icons.search);
   Icon goIcon=new Icon(Icons.navigate_next);
   TextEditingController textEditingController=new TextEditingController();
   bool vbool=false;
 
-List<Widget> _buildCategory(){
-    List<Container> containers=new List<Container>.generate(8,
-    (int index){
-        final imageName='assets/cool-htc-one-wallpapers-4310228.png';
-      return new Container(
-        child: new Image.asset(imageName, 
-        fit: BoxFit.cover,
-        height: 150.0,
-        width: 150.0,),
-      );
-    } 
-    );
-    return containers;
-    }
+// Future<List<Widget>> _buildCategory() async {
+//     List<Container> containers=new List<Container>.generate(8,
+//     (int index){
+//         final imageName='assets/cool-htc-one-wallpapers-4310228.png';
+//       return new Container(
+//         child: new Image.asset(imageName, 
+//         fit: BoxFit.cover,
+//         height: 150.0,
+//         width: 150.0,),
+//       );
+//     } 
+//     );
+//     return containers;
+//     }
   @override
   Widget build(BuildContext context) {
     
@@ -167,13 +201,12 @@ List<Widget> _buildCategory(){
       
         ],
       ),
-      body: new GridView.extent(
-         maxCrossAxisExtent: 150.0,
-         mainAxisSpacing: 5.0,
-         crossAxisSpacing: 5.0,
+       body: new GridView.extent(
+         maxCrossAxisExtent: 200.0,
+         mainAxisSpacing: 10.0,
+         crossAxisSpacing: 10.0,
          padding: const EdgeInsets.all(5.0),
          children: _buildCategory(),
-       )
-    );
+    ));
   }
   }

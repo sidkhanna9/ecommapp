@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ecomapp/home/tabs/customerdata/cart.dart' as cart;
-import 'package:ecomapp/home/tabs/customerdata/order.dart' as order;
 import 'package:ecomapp/home/tabs/customerdata/wishlist.dart' as wishlist;
 import 'package:ecomapp/offlinedata/contact.dart' as contact;
 import 'package:ecomapp/home/tabs/welcome.dart' as welcome;
-
+import 'package:ecomapp/home/tabs/account.dart' as account;
 class HomePage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() =>HomeTabs();
@@ -50,7 +49,7 @@ void dispose(){
           new welcome.Welcome(),
           new cart.Cart(),
           new wishlist.Wishlist(),
-          new order.Order(),
+          new account.Account(),
           new contact.Contact(),
         ]
       )
