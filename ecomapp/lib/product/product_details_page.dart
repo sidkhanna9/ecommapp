@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:ecomapp/model.dart';
 import 'package:ecomapp/image_card.dart'; 
-import 'package:ecomapp/Theme.dart' as Theme;
+import 'package:ecomapp/themedata/Theme.dart' as Theme;
 
 class ProductDetailPage extends StatelessWidget{
 

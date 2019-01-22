@@ -1,14 +1,15 @@
 import 'dart:convert';
-
-import 'package:ecomapp/login.dart';
+import 'package:ecomapp/globals/global.dart' as gb;
+import 'package:ecomapp/Login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class Signup extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+     
       home: new SignupPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue
@@ -53,11 +54,6 @@ class SignupPageState extends State<SignupPage> with SingleTickerProviderStateMi
   Future<String> getData() async {
 
 
-// Map<String,dynamic> jsonMap ={
-// 'email':emailController.text,
-// 'password':passwordController.text
-// };
-
 print(firstNameController.text);
 print(lastNameController.text);
 print(emailController.text);
@@ -72,10 +68,8 @@ Map map = {
     'password':passwordController.text
   };
 
-http.Response response = await http.post("http://10.177.7.88:8080/auth/register",
-headers: {
-  "Content-Type":"application/json"
-},
+http.Response response = await http.post(gb.signUpURL,
+headers: gb.postHeader,
 body: utf8.encode(json.encode(map))
 );
 
@@ -83,8 +77,30 @@ var jsonData=json.decode(response.body);
 var status=jsonData['status'];
 print(jsonData['status']);
 if(status == "SUCCESS")
-runApp(Login());
+{
+  
+  Fluttertoast.showToast(
+        msg: "SignUp Successful Login to continue"  ,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white);
+  runApp(Login());
 
+
+}
+
+else
+{
+  Fluttertoast.showToast(
+        msg: "SignUp Failed"  +jsonData['message'],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white);
+}
 } 
 
 

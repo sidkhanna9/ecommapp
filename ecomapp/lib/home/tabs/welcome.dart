@@ -1,15 +1,11 @@
-import 'dart:convert';
-
-import 'package:ecomapp/cart.dart' as cart;
-import 'package:ecomapp/order.dart' as order;
-import 'package:ecomapp/wishlist.dart' as wishlist;
-import 'package:ecomapp/contact.dart' as contact;
-import 'package:ecomapp/welcome.dart' as welcome;
-import 'package:ecomapp/MiniProduct.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:http/http.dart' as http;
-import 'SearchList.dart' as sl;
-class HomePage extends StatelessWidget{
+import 'dart:convert';
+import 'package:ecomapp/searchhandler/SearchList.dart' as sl;
+class Welcome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
  
@@ -17,7 +13,7 @@ class HomePage extends StatelessWidget{
 
     return new MaterialApp(
 
-      title: "HomePage",
+      
       home: DukaanHome(),
     );
 
@@ -34,76 +30,81 @@ class HomePage extends StatelessWidget{
 
 
   }
-List<MiniProduct> mp=[];
 
+  class DukaanState extends State<DukaanHome>{
+ 
+Future<String> getData() async{
 
-  class DukaanState extends State<DukaanHome>with SingleTickerProviderStateMixin{
-TabController controller;
+  if(searchQuery!=""){
+  String url=gb.searchURL+searchQuery;
+    var uri= Uri.encodeFull(url);
+    print(uri);
 
-  @override
-  void initState() {
-    super.initState();
-    controller = new TabController(vsync: this, length: 5);
+http.Response response = await http.get(uri,
+headers: gb.getHeader);
+var jsonData=json.decode(response.body);
+
+gb.mp.clear();
+for (var v in jsonData)
+{
+
+gb.tmp.productId= v['productId'];
+gb.tmp.productName= v['productName'];
+gb.tmp.category= v['category'];
+gb.tmp.keyFeatures= v['keyFeatures'];
+gb.tmp.description= v['description'];
+gb.tmp.imageUrl= v['imgURL'];
+gb.tmp.rating= v['rating'];
+gb.tmp.bestPrice= v['bestPrice'];
+gb.tmp.outOfStock= v['outOfStock'];
+
+  gb.mp.add(gb.tmp);
+}
+Navigator.push(context, MaterialPageRoute(builder: (context){
+return sl.SearchList();
+}));
+  
+  }
+  else{
+Fluttertoast.showToast(
+        msg: "Enter Search Query"  ,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white);
+  
+
+    
+  }
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-  Widget appTitle=new Text("Dukaan.com");
+Widget appTitle=new Text("Dukaan.com");
   Icon ic=new Icon(Icons.search);
   Icon goIcon=new Icon(Icons.navigate_next);
   TextEditingController textEditingController=new TextEditingController();
   bool vbool=false;
 String searchQuery;
-Future<List<MiniProduct>> getData() async{
 
-  print("Get Data mei ghusa");
-  String url="http://10.177.7.88:7000/search/all/"+searchQuery;
-  print(url);
-    var uri= Uri.encodeFull(url);
-    print(uri);
-
-http.Response response = await http.get(uri,
-headers: {
-  "Accept":"application/json"
-});
-print(response.body);
-var jsonData=json.decode(response.body);
-
-
-for (var v in jsonData)
-{
-
-  MiniProduct mini=MiniProduct(productId: v['productId'],productName: v['productName'],category: v['category'],keyFeatures: v['keyFeatures'],description: v['description'],imageUrl: v['imgURL'],rating: v['rating'],bestPrice: v['bestPrice'],outOfStock: v['outOfStock']);
-print(v['imgURL']);
-print(mini);
-  mp.add(mini);
-}
-Navigator.push(context, MaterialPageRoute(builder: (context){
-return sl.SearchList();
-}));
-  }
-// List<Widget> _buildCategory(){
-//     List<Container> containers=new List<Container>.generate(8,
-//     (int index){
-//         final imageName='assets/cool-htc-one-wallpapers-4310228.png';
-//       return new Container(
-//         child: new Image.asset(imageName, 
-//         fit: BoxFit.cover,
-//         height: 150.0,
-//         width: 150.0,),
-//       );
-
-//     } 
-//     );
-//     return containers;
-//     }
+List<Widget> _buildCategory(){
+    List<Container> containers=new List<Container>.generate(8,
+    (int index){
+        final imageName='assets/cool-htc-one-wallpapers-4310228.png';
+      return new Container(
+        child: new Image.asset(imageName, 
+        fit: BoxFit.cover,
+        height: 150.0,
+        width: 150.0,),
+      );
+    } 
+    );
+    return containers;
+    }
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
+    
       appBar: new AppBar(
         centerTitle: true,
         title: appTitle,
@@ -167,29 +168,13 @@ return sl.SearchList();
       
         ],
       ),
-      bottomNavigationBar: new Container(
-        color: Colors.teal,
-        child: new TabBar(
-          controller: controller,
-           tabs: <Tab>[
-            new Tab(icon: Icon(Icons.home)),
-            new Tab(icon: Icon(Icons.shopping_cart)),
-            new Tab(icon: Icon(Icons.favorite)),
-            new Tab(icon: Icon(Icons.account_circle)),
-            new Tab(icon: Icon(Icons.help)),
-          ]
-          )
-      ),
-      body: new TabBarView(
-        controller: controller,
-        children: <Widget>[
-          new welcome.Welcome(),
-          new cart.Cart(),
-          new wishlist.Wishlist(),
-          new order.Order(),
-          new contact.Contact(),
-        ]
-      )
+      body: new GridView.extent(
+         maxCrossAxisExtent: 150.0,
+         mainAxisSpacing: 5.0,
+         crossAxisSpacing: 5.0,
+         padding: const EdgeInsets.all(5.0),
+         children: _buildCategory(),
+       )
     );
   }
   }

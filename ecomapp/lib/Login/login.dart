@@ -1,14 +1,15 @@
 import 'dart:convert';
-import 'package:ecomapp/home_page.dart';
+import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ecomapp/home/home_page.dart';
 
 class Login extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+     
       home: new LoginPage(),
       theme: ThemeData(
         primarySwatch: Colors.blue
@@ -60,24 +61,29 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
 // 'email':emailController.text,
 // 'password':passwordController.text
 // };
-
+Map map={
+'email':emailController.text,
+'password':passwordController.text
+};
 print(emailController.text);
 
 print(passwordController.text);
 
 
-http.Response response = await http.post("http://10.177.7.88:8080/auth/login",
+http.Response response = await http.post(gb.loginURL,
 headers: {
   "Content-Type":"application/json"
 },
-body: "{\"emailId\":" +"\""+emailController.text+"\"" + ",\"password\":"+"\""+passwordController.text+"\"}",
+body: utf8.encode(json.encode(map)),
+
 );
 
-print(response.body);
 var jsonData=json.decode(response.body);
 
 if(jsonData['status']=="SUCCESS")
 {
+  gb.session.email=emailController.text;
+  gb.session.password=passwordController.text;
   Fluttertoast.showToast(
         msg: "Login Success",
         toastLength: Toast.LENGTH_SHORT,
