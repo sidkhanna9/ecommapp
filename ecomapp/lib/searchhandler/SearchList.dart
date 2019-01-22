@@ -1,13 +1,8 @@
-import 'dart:convert';
+
 import 'ProductList.dart';
-import 'package:ecomapp/MiniProduct.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
-import 'GradientAppBar.dart';
-
-
-
+import 'package:ecomapp/globals/global.dart' as gb;
+import 'package:ecomapp/themedata/GradientAppBar.dart';
 class SearchList extends StatelessWidget {
 
   @override
@@ -30,7 +25,7 @@ class SearchListBodyState extends State<SearchListBody> {
   Widget build(BuildContext context) {
     return new Column(
       children: <Widget>[
-        new GradientAppBar("Search Results:"),
+        new GradientAppBar("Showing Results for "+gb.searchQuery),
         new ProductList(),
       ],
     );

@@ -35,8 +35,8 @@ class Welcome extends StatelessWidget{
  
 Future<String> getData() async{
 
-  if(searchQuery!=""){
-  String url=gb.searchURL+searchQuery;
+  if(gb.searchQuery!=""){
+  String url=gb.searchURL+gb.searchQuery;
     var uri= Uri.encodeFull(url);
     print(uri);
 
@@ -77,6 +77,7 @@ Fluttertoast.showToast(
 
     
   }
+  return "";
   }
 
 Widget appTitle=new Text("Dukaan.com");
@@ -84,7 +85,6 @@ Widget appTitle=new Text("Dukaan.com");
   Icon goIcon=new Icon(Icons.navigate_next);
   TextEditingController textEditingController=new TextEditingController();
   bool vbool=false;
-String searchQuery;
 
 List<Widget> _buildCategory(){
     List<Container> containers=new List<Container>.generate(8,
@@ -122,8 +122,7 @@ List<Widget> _buildCategory(){
                                   keyboardType: TextInputType.text,
                                   
                                   onFieldSubmitted: (term){
-                                    this.searchQuery=textEditingController.text.toString();
-                                    print(searchQuery);
+                                    gb.searchQuery=textEditingController.text.toString();
                                     FocusScope.of(context).requestFocus(new FocusNode());
                                     
                                     getData();
@@ -156,8 +155,8 @@ List<Widget> _buildCategory(){
             
             onPressed: (){
 
-                    this.searchQuery=textEditingController.text.toString();
-                    print(this.searchQuery);
+                    gb.searchQuery=textEditingController.text.toString();
+                    print(gb.searchQuery);
                     FocusScope.of(context).requestFocus(new FocusNode());
                     getData();
 

@@ -1,49 +1,18 @@
 import 'dart:convert';
-
-import 'package:ecomapp/model.dart';
-import 'package:ecomapp/product_details_page.dart';
+import 'package:ecomapp/globals/global.dart' as gb;
+import 'package:ecomapp/product/model.dart';
+import 'package:ecomapp/searchhandler/MiniProduct.dart';
 import 'package:flutter/material.dart';
-import 'package:ecomapp/MiniProduct.dart';
-import 'package:ecomapp/Theme.dart' as Theme;
 import 'package:http/http.dart' as http;
-//import 'package:fluro/fluro.dart';
+import 'package:ecomapp/themedata/Theme.dart' as theme;
+
 class ProductRow extends StatelessWidget{
   MiniProduct mini;
     ProductRow({this.mini});
-  
-
-Product arg;
-
-  Future<Product> _product() async{
-print("Row fetched");
-print("\n\n\n\n\n\n\n\n\n");
-
-String url="http://10.177.7.88:5000/product/get/"+this.mini.productId;
-print("\n\n\n"+this.mini.productId+"\n\n\n\n\n");
-http.Response response = await http.get(Uri.encodeFull(url),
-headers: {
-  "Accept":"application/json"
-});
-print("yaha pe");
-print(response.body);
-print("\n\n\n\n\n\n\n\n\n");
-
-var jsonData=json.decode(response.body);
-this.arg= Product(name: jsonData['productName'],
- avatar: jsonData['imageSrc'][0],
-  description: jsonData['description'],
-   images: jsonData['imgSrc'],
-    rating: jsonData['rating'], 
-    features: jsonData['keyFeatures'],
-     id: jsonData['productId'],);
-return arg;
-
-  }
+    Product arg;
  
   @override
   Widget build(BuildContext context) {
-print("\n\n\n\n\n\n\n\n\n");
-    print(mini.imageUrl);
     final productThumbnail=new Container(
 
 alignment: new FractionalOffset(0.0, 0.5),
@@ -55,8 +24,8 @@ alignment: new FractionalOffset(0.0, 0.5),
           child:Image.network(
             
           mini.imageUrl,
-          height: Theme.Dimens.productHeight,
-          width: Theme.Dimens.productWidth,
+          height: theme.Dimens.productHeight,
+          width: theme.Dimens.productWidth,
         
         fit: BoxFit.fitHeight
         )
@@ -69,7 +38,7 @@ alignment: new FractionalOffset(0.0, 0.5),
 final productCard = new Container(
       margin: const EdgeInsets.only(left: 72.0, right: 24.0),
       decoration: new BoxDecoration(
-        color: Theme.Colors.productCard,
+        color: theme.Colors.productCard,
         shape: BoxShape.rectangle,
         borderRadius: new BorderRadius.circular(8.0),
         boxShadow: <BoxShadow>[
@@ -84,8 +53,8 @@ final productCard = new Container(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Text(mini.productName, style: Theme.TextStyles.productTitle),
-            new Text(mini.category, style: Theme.TextStyles.productCategory),
+            new Text(mini.productName, style: theme.TextStyles.productTitle),
+            new Text(mini.category, style: theme.TextStyles.productCategory),
             new Container(
               color: const Color(0xFF00C6FF),
               width: 24.0,
@@ -95,14 +64,14 @@ final productCard = new Container(
             new Row(
               children: <Widget>[
                 new Icon(Icons.star, size: 14.0,
-                  color: Theme.Colors.productRating),
+                  color: theme.Colors.productRating),
                 new Text(
-                  mini.rating.toString(), style: Theme.TextStyles.productRating),
+                  mini.rating.toString(), style: theme.TextStyles.productRating),
                 new Container(width: 24.0),
                 new Icon(Icons.monetization_on ,size: 14.0,
-                  color: Theme.Colors.productBestPrice),
+                  color: theme.Colors.productBestPrice),
                 new Text(
-                  mini.bestPrice.toString(), style: Theme.TextStyles.productBestPrice),
+                  mini.bestPrice.toString(), style: theme.TextStyles.productBestPrice),
               ],
             )
           ],
@@ -114,24 +83,10 @@ final productCard = new Container(
       height: 120.0,
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
-       // onPressed: () => _navigateTo(context, mini.productId),
-        onPressed: (){
-print("\n\n\n\n\n\n\n\n\n");
-    print(mini.imageUrl+"Nav ke upar wal");
-          Navigator.push(context, MaterialPageRoute( builder:(context)  {
-  
-
-              _product();
-  
-              return ProductDetailPage( arg); 
-              
-              
-
-          }
-               )
-              
-          );
-        },
+       onPressed: (){
+        gb.productId= mini.productId;
+        getdata();
+       },
         
         child: new Stack(
           children: <Widget>[
@@ -143,12 +98,53 @@ print("\n\n\n\n\n\n\n\n\n");
     );
   }
 
-  // _navigateTo(context, String id) {
-  //   Routes.navigateTo(
-  //     context,
-  //     '/detail/${planet.id}',
-  //     transition: TransitionType.fadeIn
-  //   );
-  // }
+
+
+Future<String> getdata() async{
+http.Response response= await http.get(Uri.encodeFull(gb.productFetchUrl),headers: gb.getHeader);
+var jsonData=json.decode(response.body);
+gb.product.id=jsonData[''];
+gb.product.images=jsonData[''];
+gb.product.name=jsonData['productName'];
+gb.product.description=jsonData['description'];
+gb.product.features=jsonData['keyFeatures'];
+gb.product.rating=jsonData['rating'];
+gb.product.avatar=jsonData[''];
+
+/*
+
+  Product({
+    @required this.id,
+    @required this.name,
+    @required this.avatar,
+    @required this.description,
+    @required this.features,
+    @required this.rating,
+    @required this.images,
+  });
+
+ */
+
 
 }
+}
+
+//   Future<Product> _product() async{
+
+// String url="http://10.177.7.88:5000/product/get/"+this.mini.productId;
+// http.Response response = await http.get(Uri.encodeFull(url),
+// headers: {
+//   "Accept":"application/json"
+// });
+
+// var jsonData=json.decode(response.body);
+// this.arg= Product(name: jsonData['productName'],
+//  avatar: jsonData['imageSrc'][0],
+//   description: jsonData['description'],
+//    images: jsonData['imgSrc'],
+//     rating: jsonData['rating'], 
+//     features: jsonData['keyFeatures'],
+//      id: jsonData['productId'],);
+// return arg;
+
+//   }
