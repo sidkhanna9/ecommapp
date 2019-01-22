@@ -10,7 +10,7 @@ static final Product product=Product(
   name:"abc",
   avatar:"assets/cool-htc-one-wallpapers-4310228.png",
   description:"xyz" ,
-  rating:"3/5",
+  rating:"3",
   images: <Images>[
     Images(
       title:"xyz",

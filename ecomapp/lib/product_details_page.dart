@@ -1,6 +1,8 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:ecomapp/model.dart';
-import 'package:ecomapp/image_card.dart';
+import 'package:ecomapp/image_card.dart'; 
+import 'package:ecomapp/Theme.dart' as Theme;
 
 class ProductDetailPage extends StatelessWidget{
 
@@ -50,21 +52,42 @@ class ProductDetailPage extends StatelessWidget{
               fontSize: 30.0,
             ),
           ),
-          Text(
-            product.rating,
+          new Row(
+              children: <Widget>[
+          new Icon(Icons.star, size: 14.0,
+                  color: Colors.black),
+                  new Text(
+                  product.rating,
             style:TextStyle(
               color:Colors.black.withOpacity(0.85),
               fontWeight: FontWeight.w500,
             ),
+            ),
+              ]
           ),
           Container(
             color: Colors.black.withOpacity(0.85),
             margin: const EdgeInsets.symmetric(vertical: 16.0),
             width: 225.0,
             height: 1.0,
-          ),
+          ),DropdownButton<String>(
+            hint: new Text("Select Merchant"),
+            
+  items: <String>['A', 'B', 'C', 'D'].map((String value) {
+    return new DropdownMenuItem<String>(
+      value: value,
+      child: new Text(value,
+      style: TextStyle(
+              color: Colors.black.withOpacity(0.85),
+              height: 1.4,
+            ),
+      ),
+    );
+  }).toList(),
+  onChanged: (_) {},
+),
           Text(
-            product.description,
+            "Description:\n"+product.description+"Features:\n"+product.features,
             style: TextStyle(
               color: Colors.black.withOpacity(0.85),
               height: 1.4,
@@ -97,53 +120,36 @@ class ProductDetailPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    resizeToAvoidBottomPadding: false,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          new Image(
-            image: new AssetImage("assets/2.jpg"),
-            fit: BoxFit.fitHeight,
-          ),
-          new Column(
-            children: <Widget>[
-            _buildContent(),
-        //   new MaterialButton(
-        //           color: Colors.black,
-        //           textColor: Colors.white,
-        //           child: new Text("Add to Cart"),
-        //           onPressed: ()=>{},
-        //           splashColor: Colors.redAccent,
-        //         ),
-        // new MaterialButton(
-        //           color: Colors.black,
-        //           textColor: Colors.white,
-        //           child: new Text("Add to Wishlist"),
-        //           onPressed: ()=>{},
-        //           splashColor: Colors.redAccent,
-        //           //animationDuration: Duration(milliseconds: 500)
-        //         ),
-    //           new MaterialButton(
-    //               color: Colors.black,
-    //               textColor: Colors.white,
-    //               child: new Text("Add to Cart"),
-    //               onPressed: ()=>{},
-    //               splashColor: Colors.redAccent,
-    //             ),
-    // new MaterialButton(
-    //               color: Colors.black,
-    //               textColor: Colors.white,
-    //               child: new Text("Add to Wishlist"),
-    //               onPressed: ()=>{},
-    //               splashColor: Colors.redAccent,
-    //               //animationDuration: Duration(milliseconds: 500)
-    //             ),
-             ],
-          ),
-
-           // color: Colors.black87,
-            //colorBlendMode: BlendMode.lighten,
-        ],
+          //Image.asset("assets/2.jpg",fit: BoxFit.cover),
+          BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            child: Container(
+              color: Colors.white,
+              child: _buildContent(),
+          )
       ),
+        ],
+        
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.blue,
+       currentIndex: 0, // this will be set when a new tab is tapped
+       items: [
+         BottomNavigationBarItem(
+           icon: new Icon(Icons.shopping_cart),
+           title: new Text('Add to cart'),
+         ),
+         BottomNavigationBarItem(
+           icon: new Icon(Icons.favorite),
+           title: new Text('Add to wishlist'),
+         ),
+         
+       ],
+     ),
     );
   }
 }

@@ -19,50 +19,16 @@ class ImageCard extends StatelessWidget {
     );
   }
 
-  // Widget _buildThumbnail() {
-  //   return ClipRRect(
-  //     borderRadius: BorderRadius.circular(8.0),
-  //     child: Stack(
-  //       children: <Widget>[
-  //         Image.asset(image.thumbnail),
-  //         // Positioned(
-  //         //   bottom: 12.0,
-  //         //   right: 12.0,
-  //         //   child: _buildPlayButton(),
-  //         // ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildPlayButton() {
-  //   return Material(
-  //     color: Colors.black87,
-  //     type: MaterialType.circle,
-  //     child: InkWell(
-  //       onTap: () async {
-  //         if (await canLaunch(video.url)) {
-  //           await launch(video.url);
-  //         }
-  //       },
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(8.0),
-  //         child: Icon(
-  //           Icons.play_arrow,
-  //           color: Colors.white,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  Widget _buildInfo() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, left: 4.0, right: 4.0),
-      child: Text(
-        image.title,
-        style: TextStyle(color: Colors.white.withOpacity(0.85)),
-      ),
+  Widget _buildThumbnail() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8.0),
+      child: Align(
+    alignment: Alignment.topCenter,
+    heightFactor: 2,
+    widthFactor: 2,
+    child: Image.asset(image.thumbnail,
+    fit: BoxFit.fitHeight),
+  ),
     );
   }
 
@@ -76,8 +42,8 @@ class ImageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          //Flexible(flex: 3, child: _buildThumbnail()),
-          Flexible(flex: 2, child: _buildInfo()),
+          Flexible(flex: 2, child: _buildThumbnail()),
+          //Flexible(flex: 2, child: _buildInfo()),
         ],
       ),
     );

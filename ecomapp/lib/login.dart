@@ -67,15 +67,16 @@ print(passwordController.text);
 
 
 http.Response response = await http.post("http://10.177.7.88:8080/auth/login",
-// headers: {
-//   "Content-Type":"application/json"
-// },
+headers: {
+  "Content-Type":"application/json"
+},
 body: "{\"emailId\":" +"\""+emailController.text+"\"" + ",\"password\":"+"\""+passwordController.text+"\"}",
 );
 
 print(response.body);
 var jsonData=json.decode(response.body);
-if(jsonData['status'])
+
+if(jsonData['status']=="SUCCESS")
 {
   Fluttertoast.showToast(
         msg: "Login Success",
@@ -198,14 +199,6 @@ mainAxisSize: MainAxisSize.min,
             ]
                 )
                 )
-                //end
-                // new MaterialButton(
-                //   color: Colors.teal,
-                //   textColor: Colors.white,
-                //   child: new Text("Login"),
-                //   onPressed: getData,
-                //   splashColor: Colors.redAccent,
-                // ),
                     ],
                 ),
                   ),

@@ -6,8 +6,9 @@ class Order extends StatelessWidget{
 Widget build(BuildContext context)
 {
   return new Container(
-    height: 0.0,
-    width: 0.0,
+    child: new Center(
+        child: new Icon(Icons.contact_phone, size: 150.0, color: Colors.brown)
+      )
   );
 }
 

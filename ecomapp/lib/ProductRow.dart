@@ -1,15 +1,49 @@
+import 'dart:convert';
+
+import 'package:ecomapp/model.dart';
+import 'package:ecomapp/product_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomapp/MiniProduct.dart';
 import 'package:ecomapp/Theme.dart' as Theme;
+import 'package:http/http.dart' as http;
 //import 'package:fluro/fluro.dart';
 class ProductRow extends StatelessWidget{
-  
-  
-  final MiniProduct mini;
+  MiniProduct mini;
     ProductRow({this.mini});
   
+
+Product arg;
+
+  Future<Product> _product() async{
+print("Row fetched");
+print("\n\n\n\n\n\n\n\n\n");
+
+String url="http://10.177.7.88:5000/product/get/"+this.mini.productId;
+print("\n\n\n"+this.mini.productId+"\n\n\n\n\n");
+http.Response response = await http.get(Uri.encodeFull(url),
+headers: {
+  "Accept":"application/json"
+});
+print("yaha pe");
+print(response.body);
+print("\n\n\n\n\n\n\n\n\n");
+
+var jsonData=json.decode(response.body);
+this.arg= Product(name: jsonData['productName'],
+ avatar: jsonData['imageSrc'][0],
+  description: jsonData['description'],
+   images: jsonData['imgSrc'],
+    rating: jsonData['rating'], 
+    features: jsonData['keyFeatures'],
+     id: jsonData['productId'],);
+return arg;
+
+  }
+ 
   @override
   Widget build(BuildContext context) {
+print("\n\n\n\n\n\n\n\n\n");
+    print(mini.imageUrl);
     final productThumbnail=new Container(
 
 alignment: new FractionalOffset(0.0, 0.5),
@@ -81,7 +115,24 @@ final productCard = new Container(
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
        // onPressed: () => _navigateTo(context, mini.productId),
+        onPressed: (){
+print("\n\n\n\n\n\n\n\n\n");
+    print(mini.imageUrl+"Nav ke upar wal");
+          Navigator.push(context, MaterialPageRoute( builder:(context)  {
+  
 
+              _product();
+  
+              return ProductDetailPage( arg); 
+              
+              
+
+          }
+               )
+              
+          );
+        },
+        
         child: new Stack(
           children: <Widget>[
             productCard,
