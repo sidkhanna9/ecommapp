@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget{
 
 
   }
-List<MiniProduct> mp;
+List<MiniProduct> mp=[];
   class DukaanState extends State<DukaanHome>{
   Widget appTitle=new Text("Dukaan.com");
   Icon ic=new Icon(Icons.search);
@@ -38,12 +38,18 @@ List<MiniProduct> mp;
   bool vbool=false;
 String searchQuery;
 Future<List<MiniProduct>> getData() async{
+
+  print("Get Data mei ghusa");
   String url="http://10.177.7.88:7000/search/all/"+searchQuery;
+  print(url);
     var uri= Uri.encodeFull(url);
+    print(uri);
+
 http.Response response = await http.get(uri,
 headers: {
-  "Content-Type":"application/json"
+  "Accept":"application/json"
 });
+print(response.body);
 var jsonData=json.decode(response.body);
 
 
@@ -52,6 +58,7 @@ for (var v in jsonData)
 
   MiniProduct mini=MiniProduct(productId: v['productId'],productName: v['productName'],category: v['category'],keyFeatures: v['keyFeatures'],description: v['description'],imageUrl: v['imgURL'],rating: v['rating'],bestPrice: v['bestPrice'],outOfStock: v['outOfStock']);
 print(v['imgURL']);
+print(mini);
   mp.add(mini);
 }
 Navigator.push(context, MaterialPageRoute(builder: (context){

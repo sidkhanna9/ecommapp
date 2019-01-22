@@ -67,9 +67,9 @@ print(passwordController.text);
 
 
 http.Response response = await http.post("http://10.177.7.88:8080/auth/login",
-headers: {
-  "Content-Type":"application/json"
-},
+// headers: {
+//   "Content-Type":"application/json"
+// },
 body: "{\"emailId\":" +"\""+emailController.text+"\"" + ",\"password\":"+"\""+passwordController.text+"\"}",
 );
 
