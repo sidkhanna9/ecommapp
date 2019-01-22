@@ -81,7 +81,13 @@ final productCard = new Container(
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
        // onPressed: () => _navigateTo(context, mini.productId),
+        onPressed: (){
 
+          Navigator.push(context, MaterialPageRoute( builder:(context){
+
+              
+          }));
+        },
         child: new Stack(
           children: <Widget>[
             productCard,
