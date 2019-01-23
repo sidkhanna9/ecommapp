@@ -37,8 +37,8 @@ class TextStyles {
   static const TextStyle appBarTitle = const TextStyle(
     color: Colors.appBarTitle,
     fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600,
-    fontSize: 36.0
+    //fontWeight: FontWeight.w600,
+     fontSize: 24.0
   );
 
   static const TextStyle productTitle = const TextStyle(

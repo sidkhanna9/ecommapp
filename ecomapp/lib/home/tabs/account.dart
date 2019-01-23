@@ -5,7 +5,8 @@ class Account extends StatelessWidget{
 @override
 Widget build(BuildContext context)
 {
-  return new Scaffold(
+  return new MaterialApp(
+    home: new Scaffold(
     appBar: new AppBar(
       title: new Text("Account")
     ),
@@ -24,7 +25,7 @@ Widget build(BuildContext context)
          
        ],
      ),
-  );
+  ));
 }
 
 }

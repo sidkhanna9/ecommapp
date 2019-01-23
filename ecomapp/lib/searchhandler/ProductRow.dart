@@ -13,6 +13,7 @@ class ProductRow extends StatelessWidget{
  
   @override
   Widget build(BuildContext context) {
+    print("Reached");
     final productThumbnail=new Container(
 
 alignment: new FractionalOffset(0.0, 0.5),
@@ -78,7 +79,7 @@ final productCard = new Container(
         ),
       ),
     );
-
+print("Container");
     return new Container(
       height: 120.0,
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),

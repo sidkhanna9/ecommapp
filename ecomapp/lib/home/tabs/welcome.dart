@@ -1,3 +1,4 @@
+import 'package:ecomapp/searchhandler/MiniProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -8,7 +9,6 @@ import 'package:ecomapp/searchhandler/SearchList.dart' as sl;
 class Welcome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
- 
 
 
     return new MaterialApp(
@@ -69,6 +69,7 @@ Text(name[index]),
     
 Future<String> getData() async{
 
+gb.mp.clear();
   if(gb.searchQuery!=""){
   String url=gb.searchURL+gb.searchQuery;
     var uri= Uri.encodeFull(url);
@@ -76,27 +77,41 @@ Future<String> getData() async{
 
 http.Response response = await http.get(uri,
 headers: gb.getHeader);
+
+print("\n");
+print("\n");
+print("\n");
+
+print(response.body);
+
+print("\n");
+print("\n");
 var jsonData=json.decode(response.body);
 
-gb.mp.clear();
 for (var v in jsonData)
 {
+MiniProduct tmp=new MiniProduct();
+tmp.productId= v['productId'];
+tmp.productName= v['productName'];
+tmp.category= v['category'];
+tmp.keyFeatures= v['keyFeatures'];
+tmp.description= v['description'];
+tmp.imageUrl= v['imageSrc'];
+tmp.rating= v['productRating'];
+tmp.bestPrice= v['bestPrice'];
+tmp.outOfStock= v['outOfStock'];
 
-gb.tmp.productId= v['productId'];
-gb.tmp.productName= v['productName'];
-gb.tmp.category= v['category'];
-gb.tmp.keyFeatures= v['keyFeatures'];
-gb.tmp.description= v['description'];
-gb.tmp.imageUrl= v['imgURL'];
-gb.tmp.rating= v['rating'];
-gb.tmp.bestPrice= v['bestPrice'];
-gb.tmp.outOfStock= v['outOfStock'];
-
-  gb.mp.add(gb.tmp);
+  gb.mp.add(tmp);
+  
+  print(gb.mp.last.productId);
+  print(gb.mp.first.productId);
 }
-Navigator.push(context, MaterialPageRoute(builder: (context){
-return sl.SearchList();
+
+Navigator.of(context).push(MaterialPageRoute(builder: (context){
+
+  return sl.SearchList();
 }));
+  
   
   }
   else{

@@ -8,12 +8,18 @@ class Customer{
 }
 
 Customer session=new Customer();
-String loginURL="http://10.177.7.88:8000/auth/signin";
-String signUpURL="http://10.177.7.88:8000/auth/signup";
-String searchURL="http://10.177.7.88:7000/search/all/";
+String hostip="http://10.177.7.88";
+String loginURL=hostip+":8000/auth/signin";
+String signUpURL=hostip+":8000/auth/signup";
+String searchURL=hostip+":3000/search/all/";
 String searchQuery;
 String productFetchUrl;
-String productId,laptopURL,accPhone,phoneURL,furnitureURL,watchURL,clothURL,shoeURL,jewelry;
+String productId;
+String laptopURL=hostip+"/categories",accPhone=hostip+"/categories",phoneURL=hostip+"/categories",furnitureURL=hostip+"/categories",watchURL=hostip+"/categories",clothURL=hostip+"/categories",shoeURL=hostip+"/categories",jewelry=hostip+"/categories";
+String addToCartURL="http://10.177.7.88:7000/cart/item/add/";
+
+String token;
+
 
 Map<String,String> postHeader={
   
@@ -23,6 +29,6 @@ Map<String,String> postHeader={
 Map<String,String> getHeader={
   "Accept":"application/json"
 };
-MiniProduct tmp;
-List<MiniProduct> mp=[];
+
+List<MiniProduct> mp=new List<MiniProduct>();
 Product product;

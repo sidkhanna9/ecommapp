@@ -1,7 +1,8 @@
 class MiniProduct {
 
 String productId,productName,category,imageUrl,keyFeatures,description;
-int rating,bestPrice;
+double rating;
+int bestPrice;
 bool outOfStock;
 
 

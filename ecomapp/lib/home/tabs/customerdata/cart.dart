@@ -13,7 +13,7 @@ CartState createState() => new CartState();
 class CartState extends State<Cart>{
 
 Map data;
-static String token="spdipali@gmail.com";
+static String token="thesidkhanna@gmail.com";
 String url="http://10.177.7.88:7000/cart/get?token="+token;
 Future<String> getData() async{
   
@@ -34,9 +34,7 @@ data = json.decode(response.body)[0];
 }
 
 @override
-void initState(){
-  this.getData();
-}
+Future initState()  => this.getData();
 @override
 Widget build(BuildContext context)
 {

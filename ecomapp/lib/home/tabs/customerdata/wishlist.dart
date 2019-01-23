@@ -13,7 +13,7 @@ WishlistState createState() => new WishlistState();
 class WishlistState extends State<Wishlist>{
 
 Map data;
-static String token="spdipali@gmail.com";
+static String token="thesidkhanna@gmail.com";
 String url="http://10.177.7.112:8000/wishlist/get?token="+token;
 Future<String> getData() async{
   
