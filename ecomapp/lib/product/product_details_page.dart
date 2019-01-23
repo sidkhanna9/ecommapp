@@ -119,7 +119,7 @@ var myInt,qInt;
         // value:itemSelect,
         // ),
           Text(
-            "Description:\n"+productGlobal.description+"Features:\n"+productGlobal.features,
+            "Description:\n"+productGlobal.description+"\nFeatures:\n"+productGlobal.features,
             style: TextStyle(
               color: Colors.black.withOpacity(0.85),
               height: 1.4,
