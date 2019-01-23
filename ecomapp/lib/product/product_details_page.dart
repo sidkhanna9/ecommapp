@@ -1,12 +1,27 @@
+import 'dart:convert';
 import 'dart:ui' as ui;
+import 'package:ecomapp/Login/login.dart';
+import 'package:ecomapp/home/tabs/customerdata/cart.dart';
 import 'package:ecomapp/product/model.dart';
 import 'package:ecomapp/themedata/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:ecomapp/themedata/Theme.dart' as Theme;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
-class ProductDetailPage extends StatelessWidget{
 
+
+
+ class ProductDetailPage extends StatefulWidget{
+   @override
+   ProductState createState() => new ProductState();
+ }
+
+ class ProductState extends State<ProductDetailPage>{
+
+var myInt,qInt;
+  final quantityController=TextEditingController();
    final Product product=gb.product;
   var itemSelect;
   List<String> costA;
@@ -94,6 +109,7 @@ class ProductDetailPage extends StatelessWidget{
         value:itemSelect,
         ),
         new TextFormField(
+          controller: quantityController,
                     decoration: new InputDecoration(
                       labelText : "Enter quantity out of "+costA[2]
                     ),
@@ -129,7 +145,86 @@ class ProductDetailPage extends StatelessWidget{
       ),
     );
   }
+Future<String> getData() async {
+  if(costA!=null)
+{
+  myInt = int.parse(costA[2]);
+assert(myInt is int);
+qInt = int.parse(quantityController.text);
+assert(qInt is int);
+}
+if(costA==null){
+  Fluttertoast.showToast(
+        msg: "Select a merchant",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+  return null;
+}
+else if(qInt>myInt){
+  Fluttertoast.showToast(
+        msg: "Maximum quantity "+myInt,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+    return null;
+}
+else{
+ 
+Map map={"token" : gb.token,
+  "product" : {
+    "inventoryId": gb.product.inventoryId,
+    "productId": gb.product.productId,
+    "productName": gb.product.name,
+    "imageSrc": gb.product.avatar,
+    "productRating": gb.product.productRating,
+    "quantity": gb.product.quantityLeftMerchant,
+    "price": gb.product.cost,
+  }
+};
 
+
+http.Response response = await http.post(gb.addToCartURL+gb.token,
+headers: {
+  "Content-Type":"application/json"
+},
+body: utf8.encode(json.encode(map)),
+
+);
+
+var jsonData=json.decode(response.body);
+
+if(jsonData['status']=="SUCCESS")
+{
+  Fluttertoast.showToast(
+        msg: "Successfully added",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+    
+
+}
+else{
+  Fluttertoast.showToast(
+        msg: "Login Failed"  +jsonData['message'],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white);
+
+
+} 
+  }}
 
   @override
   Widget build(BuildContext context) {
@@ -149,20 +244,33 @@ class ProductDetailPage extends StatelessWidget{
         ],
         
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.blue,
-       currentIndex: 0, // this will be set when a new tab is tapped
-       items: [
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.shopping_cart),
-           title: new Text('Add to cart'),
-         ),
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.favorite),
-           title: new Text('Add to wishlist'),
-         ),
-         
-       ],
+      bottomNavigationBar: BottomAppBar(
+        //hasNotch: false,
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          new RaisedButton(
+                  color: Colors.teal,
+                  textColor: Colors.white,
+                  child: new Text("Add to cart"),
+                  onPressed: (){
+                    // Navigator.push(context, MaterialPageRoute(builder: (context){
+                    //     return Signup();
+                    // }));
+                  },
+                  splashColor: Colors.redAccent,
+                ),
+          new RaisedButton(
+                  color: Colors.teal,
+                  textColor: Colors.white,
+                  child: new Text("Add to wishlist"),
+                  onPressed: (){
+                  },
+                  splashColor: Colors.redAccent,
+                )
+        ],
+      ),
      ),
     );
   }
