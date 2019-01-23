@@ -1,20 +1,22 @@
+
 import 'dart:convert';
 import 'dart:ui' as ui;
+import 'package:ecomapp/globals/global.dart';
+import 'package:ecomapp/product/merchant.dart';
 import 'package:ecomapp/product/model.dart';
 import 'package:ecomapp/themedata/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
-
-
-Product productGlobal;
+ 
+ 
+ 
  class ProductDetailPage extends StatefulWidget{
   
    @required Product product;
    ProductDetailPage({this.product}){
-
+ 
      productGlobal=product;
      print(productGlobal.toString() + "hiiiiii");
    }
@@ -22,9 +24,9 @@ Product productGlobal;
    @override
    ProductState createState() => new ProductState();
  }
-
+ 
  class ProductState extends State<ProductDetailPage>{
-
+ 
 var myInt,qInt;
   final quantityController=TextEditingController();
    final Product product=productGlobal;
@@ -43,7 +45,7 @@ var myInt,qInt;
       ),
     );
   }
-
+ 
   Widget _buildAvatar(){
     print("Building avatar");
     return Container(
@@ -60,7 +62,7 @@ var myInt,qInt;
       ),
     );
   }
-
+ 
   Widget _buildInfo(){
     print("build info");
     return Padding(
@@ -95,35 +97,27 @@ var myInt,qInt;
             width: 225.0,
             height: 1.0,
           ),
-
-          DropdownButton<String>(
-            hint: new Text("Select Merchant"),
-            isExpanded: true,
-            items: new List<DropdownMenuItem<String>>.generate(
-          productGlobal.merchantName.length,
-          (int index) => new DropdownMenuItem<String>(
-                value: index.toString(),
-                child: new Text(productGlobal.merchantName[index]+"("+productGlobal.cost[index].toString()+")\nRating:"
-                +productGlobal.merchantRating[index].toString()+
-                "\tQuantity:"+productGlobal.quantityLeftMerchant[index].toString()),
-              ),
+ 
+        //   DropdownButton<String>(
+        //     hint: new Text("Select Merchant"),
+        //     isExpanded: true,
+        //     items: new List<DropdownMenuItem<String>>.generate(
+        //   productGlobal.merchantName.length,
+        //   (int index) => new DropdownMenuItem<String>(
+        //         value: index.toString(),
+        //         child: new Text(productGlobal.merchantName[index]+"("+productGlobal.cost[index].toString()+")\nRating:"
+        //         +productGlobal.merchantRating[index].toString()+
+        //         "\tQuantity:"+productGlobal.quantityLeftMerchant[index].toString()),
+        //       ),
         
         
-        ),
-        onChanged: (String  value) {
-          this.itemSelect=value;
-          costA=value.split(':');
-        },
-        value:itemSelect,
-        ),
-        // new TextFormField(
-        //   controller: quantityController,
-        //             decoration: new InputDecoration(
-        //               labelText : "Enter quantity out of "+costA[2]
-        //             ),
-        //             keyboardType: TextInputType.text,
-        //             obscureText: true,
-        //         ),
+        // ),
+        // onChanged: (String  value) {
+        //   this.itemSelect=value;
+        //   costA=value.split(':');
+        // },
+        // value:itemSelect,
+        // ),
           Text(
             "Description:\n"+productGlobal.description+"Features:\n"+productGlobal.features,
             style: TextStyle(
@@ -135,7 +129,7 @@ var myInt,qInt;
       ),
     );
   }
-
+ 
   Widget _buildImageScroller(){
     print("build Im");
     return Padding(
@@ -197,18 +191,18 @@ Map map={"token" : gb.token,
     "price": productGlobal.cost,
   }
 };
-
-
+ 
+ 
 http.Response response = await http.post(gb.addToCartURL+gb.token,
 headers: {
   "Content-Type":"application/json"
 },
 body: utf8.encode(json.encode(map)),
-
+ 
 );
-
+ 
 var jsonData=json.decode(response.body);
-
+ 
 if(jsonData['status']=="SUCCESS")
 {
   Fluttertoast.showToast(
@@ -220,7 +214,7 @@ if(jsonData['status']=="SUCCESS")
         textColor: Colors.white
     );
     
-
+ 
 }
 else{
   Fluttertoast.showToast(
@@ -230,15 +224,16 @@ else{
         timeInSecForIos: 2,
         backgroundColor: Colors.grey,
         textColor: Colors.white);
-
-
+ 
+ 
 } 
   }}
-
+ 
   @override
   Widget build(BuildContext context) {
     print("Build main");
-    return Scaffold(
+    return new MaterialApp(
+    home:Scaffold(
     resizeToAvoidBottomPadding: false,
       body: Stack(
         fit: StackFit.expand,
@@ -263,11 +258,11 @@ else{
           new RaisedButton(
                   color: Colors.teal,
                   textColor: Colors.white,
-                  child: new Text("Add to cart"),
+                  child: new Text("Select merchant"),
                   onPressed: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context){
-                    //     return Signup();
-                    // }));
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Merchant();
+                    }));
                   },
                   splashColor: Colors.redAccent,
                 ),
@@ -282,6 +277,7 @@ else{
         ],
       ),
      ),
+    )
     );
   }
 }

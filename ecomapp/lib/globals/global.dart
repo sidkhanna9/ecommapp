@@ -33,3 +33,5 @@ Map<String,String> getHeader={
 
 List<MiniProduct> mp=new List<MiniProduct>();
 Product product;
+String categorySearchUrl=hostip+":4000/product/category/";
+Product productGlobal;

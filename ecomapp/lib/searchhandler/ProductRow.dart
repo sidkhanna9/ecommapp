@@ -71,10 +71,10 @@ final productCard = new Container(
                 new Text(
                   mini.rating.toString(), style: theme.TextStyles.productRating),
                 new Container(width: 24.0),
-                new Icon(Icons.monetization_on ,size: 14.0,
+                new Icon(mini.bestPrice==0?null:Icons.monetization_on ,size: 14.0,
                   color: theme.Colors.productBestPrice),
                 new Text(
-                  mini.bestPrice.toString(), style: theme.TextStyles.productBestPrice),
+                  mini.bestPrice==0?"":mini.bestPrice.toString(), style: theme.TextStyles.productBestPrice),
               ],
             )
           ],

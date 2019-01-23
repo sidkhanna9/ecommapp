@@ -115,11 +115,11 @@ else
     
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
-      
+    
       backgroundColor: Colors.black,
       
-      body: new Stack(fit: StackFit.expand,
-        children: <Widget>[
+      body:  new SingleChildScrollView(child: new Container(//fit: StackFit.expand,
+        child:new Stack(children: <Widget>[
           new Image(
             image: new AssetImage("assets/cool-htc-one-wallpapers-4310228.png"),
             fit: BoxFit.cover,
@@ -142,6 +142,7 @@ else
                     )
                   ),
                   child: new Container(
+          
                     padding: const EdgeInsets.all(40.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -201,8 +202,12 @@ else
                 ),
             ],
           ),
+  
         ],
+        
+        )
       ),
+      )
     );
   }
 }

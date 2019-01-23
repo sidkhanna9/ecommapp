@@ -33,8 +33,8 @@ class Welcome extends StatelessWidget{
 
   class DukaanState extends State<DukaanHome>{
  List<String> image=[gb.laptopURL,gb.accPhone,gb.phoneURL,gb.furnitureURL,gb.watchURL,gb.clothURL,gb.shoeURL,gb.jewelry];
-List<String> name=["lap","acc","pho","fur","wa","cl","sh","jew",];
-   Widget appTitle=new Text("Dukaan.com");
+List<String> name=["Electronics" , "Phones" , "Phone Accessories" , "Furniture" , "Watches" , "Clothing" , "Shoes" , "Jewellery"];
+Widget appTitle=new Text("Dukaan.com");
 
 
 
@@ -44,9 +44,41 @@ List<Widget> _buildCategory(){
         final imageName=image[index];
       return GestureDetector(
         
-        onTap: (){
+        onTap: ()async{
+          http.Response response=await http.get(Uri.encodeFull(gb.categorySearchUrl+name[index]),headers: gb.getHeader);
+          print(response.body);
+//////////
+var jsonData=json.decode(response.body);
+gb.mp.clear();
+for (var v in jsonData)
+{
+MiniProduct tmp=new MiniProduct();
+tmp.productId= v['productId'];
+tmp.productName= v['productName'];
+tmp.category= v['category'];
+tmp.keyFeatures= v['keyFeatures'];
+tmp.description= v['description'];
+tmp.imageUrl= v['imageSrc'][0];
+tmp.rating= v['productRating'];
+tmp.bestPrice= 0;
+//tmp.outOfStock= v['outOfStock'];
 
-        },
+  gb.mp.add(tmp);
+  gb.searchQuery=name[index];
+  print(gb.mp.last.productId);
+  print(gb.mp.first.productId);
+}
+
+Navigator.of(context).push(MaterialPageRoute(builder: (context){
+
+  return sl.SearchList();
+}));
+  
+  
+
+
+        }
+        ,
         child:  Container(   
 child:new Column(children:
   <Widget>[
@@ -87,7 +119,7 @@ print(response.body);
 print("\n");
 print("\n");
 var jsonData=json.decode(response.body);
-
+gb.mp.clear();
 for (var v in jsonData)
 {
 MiniProduct tmp=new MiniProduct();

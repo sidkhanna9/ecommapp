@@ -5,4 +5,4 @@ import 'package:ecomapp/home/tabs/welcome.dart';
 import 'package:flutter/material.dart';
 
 
-void main() => runApp(HomePage());
+void main() => runApp(Welcome());
