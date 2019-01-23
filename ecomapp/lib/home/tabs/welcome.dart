@@ -1,6 +1,7 @@
 import 'package:ecomapp/searchhandler/MiniProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ecomapp/themedata/Theme.dart' as theme;
 
 import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:http/http.dart' as http;
@@ -45,6 +46,7 @@ List<Widget> _buildCategory(){
       return GestureDetector(
         
         onTap: ()async{
+          gb.searchQuery=name[index];
           http.Response response=await http.get(Uri.encodeFull(gb.categorySearchUrl+name[index]),headers: gb.getHeader);
           print(response.body);
 //////////
@@ -68,8 +70,8 @@ tmp.bestPrice= 0;
   print(gb.mp.last.productId);
   print(gb.mp.first.productId);
 }
-
-Navigator.of(context).push(MaterialPageRoute(builder: (context){
+gb.homeContext=context;
+Navigator.push(context,MaterialPageRoute(builder: (context){
 
   return sl.SearchList();
 }));
@@ -183,9 +185,9 @@ Fluttertoast.showToast(
 //     }
   @override
   Widget build(BuildContext context) {
-    
-    return Scaffold(
-    
+    gb.homeContext=context;
+    return new MaterialApp(home:Scaffold(
+        backgroundColor: theme.Colors.productPageBackground,
       appBar: new AppBar(
         centerTitle: true,
         title: appTitle,
@@ -254,6 +256,6 @@ Fluttertoast.showToast(
          crossAxisSpacing: 10.0,
          padding: const EdgeInsets.all(5.0),
          children: _buildCategory(),
-    ));
+    )));
   }
   }

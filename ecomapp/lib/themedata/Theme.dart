@@ -5,7 +5,7 @@ class Colors {
   const Colors();
 
 
-  static const Color appBarTitle = const Color(0xFFFFFFFF);
+  static const Color appBarTitle = const Color(0xFF00BFA5);
   static const Color appBarIconColor = const Color(0xFFFFFFFF);
   static const Color appBarDetailBackground = const Color(0x00FFFFFF);
   static const Color appBarGradientStart = const Color(0xFF3383FC);
@@ -15,7 +15,7 @@ class Colors {
   //static const Color productCard = const Color(0xFF434273);
   static const Color productCard = const Color(0XFFECEFF1);
   //static const Color productListBackground = const Color(0xFF3E3963);
-  static const Color productPageBackground = const Color(0xFF78909C);
+  static const Color productPageBackground = const Color(0xFFB2DFDB);
   static const Color productTitle = const Color(0xDD000000);
   static const Color productCategory = const Color(0xDD000000);
   static const Color productBestPrice = const Color(0xDD000000);

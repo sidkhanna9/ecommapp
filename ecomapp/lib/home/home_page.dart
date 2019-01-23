@@ -1,9 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:ecomapp/home/tabs/customerdata/cart.dart' as cart;
 import 'package:ecomapp/home/tabs/customerdata/wishlist.dart' as wishlist;
 import 'package:ecomapp/offlinedata/contact.dart' as contact;
 import 'package:ecomapp/home/tabs/welcome.dart' as welcome;
-import 'package:ecomapp/home/tabs/account.dart' as account;
+import 'package:ecomapp/home/tabs/details.dart' as details;
 class HomePage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() =>HomeTabs();
@@ -54,7 +55,7 @@ home:new Scaffold(
           new wishlist.Wishlist(),
           new cart.Cart(),          
           new welcome.Welcome(),
-          new account.Account(),
+          new details.Details(),
           new contact.Contact(),
         ]
       )

@@ -10,6 +10,7 @@ import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
  
+import 'package:ecomapp/themedata/Theme.dart' as theme;
  
  
  class ProductDetailPage extends StatefulWidget{
@@ -231,21 +232,22 @@ else{
  
   @override
   Widget build(BuildContext context) {
-    print("Build main");
     return new MaterialApp(
     home:Scaffold(
+      backgroundColor: theme.Colors.productPageBackground,
     resizeToAvoidBottomPadding: false,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+          _buildContent()
           //Image.asset("assets/2.jpg",fit: BoxFit.cover),
-          BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-            child: Container(
-              color: Colors.white,
-              child: _buildContent(),
-          )
-      ),
+      //     BackdropFilter(
+      //       filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+      //       child: Container(
+      //         color: Colors.white,
+      //         child: _buildContent(),
+      //     )
+      // ),
         ],
         
       ),

@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:ecomapp/themedata/Theme.dart' as theme;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,8 +43,10 @@ Widget build(BuildContext context)
 {
   return new MaterialApp(
     home: new Scaffold(
+      backgroundColor: theme.Colors.productPageBackground,
     appBar: new AppBar(
-      title: new Text("Cart")
+      backgroundColor: theme.Colors.appBarTitle,
+      title: new Text("Wishlist")
     ),
     body: new ListView.builder(
       itemCount: data == null ? 0 : data["product"].length,

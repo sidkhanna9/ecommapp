@@ -1,5 +1,6 @@
 import 'package:ecomapp/product/model.dart';
 import 'package:ecomapp/searchhandler/MiniProduct.dart';
+import 'package:flutter/material.dart';
 
 class Customer{
   String emailId,password;
@@ -19,7 +20,7 @@ String productId;
 String laptopURL=hostip+"/categories",accPhone=hostip+"/categories",phoneURL=hostip+"/categories",furnitureURL=hostip+"/categories",watchURL=hostip+"/categories",clothURL=hostip+"/categories",shoeURL=hostip+"/categories",jewelry=hostip+"/categories";
 String addToCartURL=hostip+":7000/cart/item/add/";
 String merchantUrl=hostip+":5000/merchant/get?merchantId=";
-String token="sachin7@gmail.com";
+String token;
 String getCartURL=hostip+":7000/cart/get?token=";
 
 Map<String,String> postHeader={
@@ -30,8 +31,9 @@ Map<String,String> postHeader={
 Map<String,String> getHeader={
   "Accept":"application/json"
 };
-
+BuildContext homeContext;
 List<MiniProduct> mp=new List<MiniProduct>();
 Product product;
 String categorySearchUrl=hostip+":4000/product/category/";
 Product productGlobal;
+String getAddress=hostip+":7000/address/get?token=";

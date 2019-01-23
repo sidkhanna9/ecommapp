@@ -24,7 +24,9 @@ class SearchListBodyState extends State<SearchListBody> {
   @override
   Widget build(BuildContext context) {
   
+  
     return new Column(
+      
       children: <Widget>[
         new GradientAppBar("Showing Results for\n"+gb.searchQuery),
         new ProductList(),
