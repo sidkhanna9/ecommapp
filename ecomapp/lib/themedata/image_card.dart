@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ecomapp/model.dart';
+import 'package:ecomapp/product/model.dart';
 
 class ImageCard extends StatelessWidget {
   ImageCard(this.image);
