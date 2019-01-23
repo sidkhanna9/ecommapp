@@ -16,7 +16,8 @@ class HomeTabs extends State<HomePage> with SingleTickerProviderStateMixin{
 @override
 void initState(){
   super.initState();
-  tc=new TabController(vsync: this,length: 5);
+  tc=new TabController(vsync: this,length: 5,initialIndex: 2);
+
 }
 
 @override
@@ -25,6 +26,8 @@ void dispose(){
   super.dispose();
 
 }
+
+
   @override
   Widget build(BuildContext context) {
     
@@ -35,9 +38,11 @@ void dispose(){
         child: new TabBar(
           controller: tc,
            tabs: <Tab>[
-            new Tab(icon: Icon(Icons.category)),
-            new Tab(icon: Icon(Icons.shopping_cart)),
+            
+            
             new Tab(icon: Icon(Icons.favorite)),
+            new Tab(icon: Icon(Icons.shopping_cart)),
+            new Tab(icon: Icon(Icons.category)),
             new Tab(icon: Icon(Icons.account_circle)),
             new Tab(icon: Icon(Icons.help)),
           ]
@@ -46,9 +51,9 @@ void dispose(){
       body: new TabBarView(
         controller: tc,
         children: <Widget>[
-          new welcome.Welcome(),
-          new cart.Cart(),
           new wishlist.Wishlist(),
+          new cart.Cart(),          
+          new welcome.Welcome(),
           new account.Account(),
           new contact.Contact(),
         ]

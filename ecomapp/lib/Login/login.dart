@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecomapp/Login/signup.dart';
 import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,29 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
 // 'email':emailController.text,
 // 'password':passwordController.text
 // };
+if(emailController.text==""){
+  Fluttertoast.showToast(
+        msg: "Email is required",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+  
+}
+if(passwordController.text==""){
+  Fluttertoast.showToast(
+        msg: "Password is required",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+}
+if(passwordController.text!="" && emailController.text!=""){
+ 
 Map map={
 'email':emailController.text,
 'password':passwordController.text
@@ -111,7 +135,7 @@ else{
 
 
 } 
-  }
+  }}
 
   @override
   Widget build(BuildContext context){
@@ -198,7 +222,11 @@ mainAxisSize: MainAxisSize.min,
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Signup"),
-                  onPressed: getData,
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Signup();
+                    }));
+                  },
                   splashColor: Colors.redAccent,
                 )
                 
