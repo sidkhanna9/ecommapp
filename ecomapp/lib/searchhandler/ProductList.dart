@@ -5,7 +5,7 @@ import 'package:ecomapp/themedata/Theme.dart' as theme;
 class ProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("Reached");
+   
     return new Flexible(
       child: new Container(
         color: theme.Colors.productPageBackground,

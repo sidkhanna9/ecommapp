@@ -1,19 +1,24 @@
 import 'dart:convert';
 import 'dart:ui' as ui;
-import 'package:ecomapp/Login/login.dart';
-import 'package:ecomapp/home/tabs/customerdata/cart.dart';
 import 'package:ecomapp/product/model.dart';
 import 'package:ecomapp/themedata/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ecomapp/globals/global.dart' as gb;
-import 'package:ecomapp/themedata/Theme.dart' as Theme;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 
 
-
+Product productGlobal;
  class ProductDetailPage extends StatefulWidget{
+  
+   @required Product product;
+   ProductDetailPage({this.product}){
+
+     productGlobal=product;
+     print(productGlobal.toString() + "hiiiiii");
+   }
+   
    @override
    ProductState createState() => new ProductState();
  }
@@ -22,10 +27,11 @@ import 'package:http/http.dart' as http;
 
 var myInt,qInt;
   final quantityController=TextEditingController();
-   final Product product=gb.product;
+   final Product product=productGlobal;
   var itemSelect;
   List<String> costA;
   Widget _buildContent(){
+    print("Build Content");
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,6 +45,7 @@ var myInt,qInt;
   }
 
   Widget _buildAvatar(){
+    print("Building avatar");
     return Container(
       width: 110.0,
       height: 110.0,
@@ -49,19 +56,20 @@ var myInt,qInt;
       margin: const EdgeInsets.only(top: 32.0,left: 16.0),
       padding: const EdgeInsets.all(3.0),
       child: ClipOval(
-        child: Image.asset(gb.product.avatar),
+        child: Image.network(productGlobal.avatar),
       ),
     );
   }
 
   Widget _buildInfo(){
+    print("build info");
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, left: 16.0, right:16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            gb.product.name,
+            productGlobal.name,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -73,7 +81,7 @@ var myInt,qInt;
           new Icon(Icons.star, size: 14.0,
                   color: Colors.black),
                   new Text(
-                  gb.product.productRating,
+                  productGlobal.productRating.toString(),
             style:TextStyle(
               color:Colors.black.withOpacity(0.85),
               fontWeight: FontWeight.w500,
@@ -92,12 +100,12 @@ var myInt,qInt;
             hint: new Text("Select Merchant"),
             isExpanded: true,
             items: new List<DropdownMenuItem<String>>.generate(
-          gb.product.merchantName.length,
+          productGlobal.merchantName.length,
           (int index) => new DropdownMenuItem<String>(
-                value: gb.product.merchantName[index]+"("+gb.product.cost[index].toString()+"\tRating:"
-                +gb.product.merchantrating[index].toString()+
-                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString(),
-                child: new Text(index.toString()),
+                value: index.toString(),
+                child: new Text(productGlobal.merchantName[index]+"("+productGlobal.cost[index].toString()+")\nRating:"
+                +productGlobal.merchantRating[index].toString()+
+                "\tQuantity:"+productGlobal.quantityLeftMerchant[index].toString()),
               ),
         
         
@@ -108,16 +116,16 @@ var myInt,qInt;
         },
         value:itemSelect,
         ),
-        new TextFormField(
-          controller: quantityController,
-                    decoration: new InputDecoration(
-                      labelText : "Enter quantity out of "+costA[2]
-                    ),
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                ),
+        // new TextFormField(
+        //   controller: quantityController,
+        //             decoration: new InputDecoration(
+        //               labelText : "Enter quantity out of "+costA[2]
+        //             ),
+        //             keyboardType: TextInputType.text,
+        //             obscureText: true,
+        //         ),
           Text(
-            "Description:\n"+gb.product.description+"Features:\n"+gb.product.features,
+            "Description:\n"+productGlobal.description+"Features:\n"+productGlobal.features,
             style: TextStyle(
               color: Colors.black.withOpacity(0.85),
               height: 1.4,
@@ -129,6 +137,7 @@ var myInt,qInt;
   }
 
   Widget _buildImageScroller(){
+    print("build Im");
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: SizedBox.fromSize(
@@ -136,9 +145,9 @@ var myInt,qInt;
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          itemCount: gb.product.imageURLList.length,
+          itemCount: productGlobal.imageURLList.length,
           itemBuilder: (BuildContext context,int index){
-            var image=gb.product.imageURLList[index];
+            var image=productGlobal.imageURLList[index];
             return ImageCard(image);
           },
         ),
@@ -179,13 +188,13 @@ else{
  
 Map map={"token" : gb.token,
   "product" : {
-    "inventoryId": gb.product.inventoryId,
-    "productId": gb.product.productId,
-    "productName": gb.product.name,
-    "imageSrc": gb.product.avatar,
-    "productRating": gb.product.productRating,
-    "quantity": gb.product.quantityLeftMerchant,
-    "price": gb.product.cost,
+    "inventoryId": productGlobal.inventoryId,
+    "productId": productGlobal.productId,
+    "productName": productGlobal.name,
+    "imageSrc": productGlobal.avatar,
+    "productRating": productGlobal.productRating,
+    "quantity": productGlobal.quantityLeftMerchant,
+    "price": productGlobal.cost,
   }
 };
 
@@ -228,6 +237,7 @@ else{
 
   @override
   Widget build(BuildContext context) {
+    print("Build main");
     return Scaffold(
     resizeToAvoidBottomPadding: false,
       body: Stack(

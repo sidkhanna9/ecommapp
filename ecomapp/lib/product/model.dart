@@ -2,19 +2,19 @@ import 'package:meta/meta.dart';
 
 class Product {
   
-    List<String> inventoryId;
-    String productId;
-    String productRating;
-    String name;
-    String avatar;
-    String description;
-    String features;
-    List<int> cost;
-    List<int> merchantrating;
-    List<int> quantityLeftMerchant;
-    List<String> imageURLList;
-    List<String> merchantId;
-    List<String> merchantName;
+  @required  List<String> inventoryId;
+  @required  String productId;
+  @required  double productRating;
+  @required  String name;
+  @required  String avatar;
+@required    String description;
+    @required String features;
+   @required List<int> cost;
+   @required List<double> merchantRating;
+  @required  List<int> quantityLeftMerchant;
+   @required List<String> imageURLList;
+  @required  List<String> merchantId;
+   @required List<String> merchantName;
 
 
     Product({
@@ -26,7 +26,7 @@ class Product {
     this.description,
     this.features,
     this.cost,
-    this.merchantrating,
+    this.merchantRating,
     this.quantityLeftMerchant,
     this.imageURLList,
     this.merchantId,

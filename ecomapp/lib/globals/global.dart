@@ -8,16 +8,17 @@ class Customer{
 }
 
 Customer session=new Customer();
+String inventoryUrl=hostip+":10000/inventory/";
 String hostip="http://10.177.7.88";
 String loginURL=hostip+":8000/auth/signin";
 String signUpURL=hostip+":8000/auth/signup";
 String searchURL=hostip+":3000/search/all/";
 String searchQuery;
-String productFetchUrl;
+String productFetchUrl=hostip+":4000/product/get/";
 String productId;
 String laptopURL=hostip+"/categories",accPhone=hostip+"/categories",phoneURL=hostip+"/categories",furnitureURL=hostip+"/categories",watchURL=hostip+"/categories",clothURL=hostip+"/categories",shoeURL=hostip+"/categories",jewelry=hostip+"/categories";
-String addToCartURL="http://10.177.7.88:7000/cart/item/add/";
-
+String addToCartURL=hostip+":7000/cart/item/add/";
+String merchantUrl=hostip+":5000/merchant/get?merchantId=";
 String token;
 
 
