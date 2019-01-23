@@ -2,14 +2,14 @@ import 'package:ecomapp/product/model.dart';
 import 'package:ecomapp/searchhandler/MiniProduct.dart';
 
 class Customer{
-  String email,password;
-Customer({this.email,this.password});
+  String emailId,password;
+
 
 }
 
-Customer session;
-String loginURL="http://10.177.7.88:8080/auth/login";
-String signUpURL="";
+Customer session=new Customer();
+String loginURL="http://10.177.7.88:8000/auth/signin";
+String signUpURL="http://10.177.7.88:8000/auth/signup";
 String searchURL="http://10.177.7.88:7000/search/all/";
 String searchQuery;
 String productFetchUrl;

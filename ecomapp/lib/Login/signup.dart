@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 class Signup extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
+    mct=context;
     return new MaterialApp(
      
       home: new SignupPage(),
@@ -17,7 +18,7 @@ class Signup extends StatelessWidget {
     );
   }
 }
-
+BuildContext mct;
 class SignupPage extends StatefulWidget{
   @override
   State createState() => new SignupPageState();
@@ -86,13 +87,15 @@ if(status == "SUCCESS")
         timeInSecForIos: 2,
         backgroundColor: Colors.grey,
         textColor: Colors.white);
-  runApp(Login());
-
+          Navigator.of(mct).pop(true);
+  
 
 }
 
 else
 {
+    
+
   Fluttertoast.showToast(
         msg: "SignUp Failed"  +jsonData['message'],
         toastLength: Toast.LENGTH_SHORT,
@@ -100,12 +103,16 @@ else
         timeInSecForIos: 2,
         backgroundColor: Colors.grey,
         textColor: Colors.white);
+       
+        
+       
 }
 } 
 
 
   @override
   Widget build(BuildContext context){
+    
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       
@@ -182,7 +189,9 @@ else
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Signup"),
-                  onPressed: getData,
+                  onPressed: 
+                    getData
+                  ,
                   splashColor: Colors.redAccent,
                 ),
                     ],
@@ -197,3 +206,4 @@ else
     );
   }
 }
+

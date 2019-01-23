@@ -53,7 +53,25 @@ class LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixi
 
 
 
-
+Future<bool> _onWillPop() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit the App'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
 
   Future<String> getData() async {
 
@@ -86,7 +104,7 @@ if(passwordController.text==""){
 if(passwordController.text!="" && emailController.text!=""){
  
 Map map={
-'email':emailController.text,
+'emailId':emailController.text,
 'password':passwordController.text
 };
 print(emailController.text);
@@ -106,7 +124,7 @@ var jsonData=json.decode(response.body);
 
 if(jsonData['status']=="SUCCESS")
 {
-  gb.session.email=emailController.text;
+  gb.session.emailId=emailController.text;
   gb.session.password=passwordController.text;
   Fluttertoast.showToast(
         msg: "Login Success",
@@ -117,6 +135,9 @@ if(jsonData['status']=="SUCCESS")
         textColor: Colors.white
     );
   Navigator.push(context, MaterialPageRoute(builder:(context){
+
+
+
 
     return HomePage();
   }));
@@ -139,7 +160,9 @@ else{
 
   @override
   Widget build(BuildContext context){
-    return new Scaffold(
+    return new WillPopScope(
+      onWillPop: ()=>_onWillPop(),
+      child: new Scaffold(
       resizeToAvoidBottomPadding: false,
       
       backgroundColor: Colors.black,
@@ -242,10 +265,6 @@ mainAxisSize: MainAxisSize.min,
           ),
         ],
       ),
-    );
+    ));
   }
 }
-
-
-
-  

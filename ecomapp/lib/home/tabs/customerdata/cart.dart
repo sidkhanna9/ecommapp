@@ -14,7 +14,7 @@ class CartState extends State<Cart>{
 
 Map data;
 static String token="spdipali@gmail.com";
-String url="http://10.177.7.112:8000/cart/get?token="+token;
+String url="http://10.177.7.88:7000/cart/get?token="+token;
 Future<String> getData() async{
   
   http.Response response= await http.get(
@@ -43,7 +43,7 @@ Widget build(BuildContext context)
   return new MaterialApp(
     home: new Scaffold(
     appBar: new AppBar(
-      title: new Text("Cart")
+      title: new Text("Wishlist")
     ),
     body: new ListView.builder(
       itemCount: data == null ? 0 : data["product"].length,

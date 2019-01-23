@@ -6,6 +6,9 @@ class Account extends StatelessWidget{
 Widget build(BuildContext context)
 {
   return new Scaffold(
+    appBar: new AppBar(
+      title: new Text("Account")
+    ),
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.blue,
        currentIndex: 0, // this will be set when a new tab is tapped

@@ -7,8 +7,9 @@ import 'package:ecomapp/themedata/Theme.dart' as Theme;
 
 class ProductDetailPage extends StatelessWidget{
 
-   Product product=gb.product;
+   final Product product=gb.product;
   var itemSelect;
+  List<String> costA;
   Widget _buildContent(){
     return SingleChildScrollView(
       child: Column(
@@ -78,9 +79,9 @@ class ProductDetailPage extends StatelessWidget{
             items: new List<DropdownMenuItem<String>>.generate(
           gb.product.merchantName.length,
           (int index) => new DropdownMenuItem<String>(
-                value: gb.product.merchantName[index]+"("+gb.product.cost[index].toString()+
-                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString()+"\tRating:"
-                +gb.product.merchantrating[index].toString(),
+                value: gb.product.merchantName[index]+"("+gb.product.cost[index].toString()+"\tRating:"
+                +gb.product.merchantrating[index].toString()+
+                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString(),
                 child: new Text(index.toString()),
               ),
         
@@ -88,17 +89,13 @@ class ProductDetailPage extends StatelessWidget{
         ),
         onChanged: (String  value) {
           this.itemSelect=value;
+          costA=value.split(':');
         },
         value:itemSelect,
         ),
         new TextFormField(
-                  // focusNode: fn,
-                  // onFieldSubmitted: (term){
-                  //   FocusScope.of(context).requestFocus(new FocusNode());
-                  // },
-                  // controller: passwordController,
                     decoration: new InputDecoration(
-                      labelText : "Enter Password",
+                      labelText : "Enter quantity out of "+costA[2]
                     ),
                     keyboardType: TextInputType.text,
                     obscureText: true,
