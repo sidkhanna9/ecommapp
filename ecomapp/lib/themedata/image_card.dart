@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ecomapp/product/model.dart';
+
 
 class ImageCard extends StatelessWidget {
   ImageCard(this.image);
-  final Images image;
+  final String image;
 
   BoxDecoration _buildShadowAndRoundedCorners() {
     return BoxDecoration(
@@ -26,7 +26,7 @@ class ImageCard extends StatelessWidget {
     alignment: Alignment.topCenter,
     heightFactor: 2,
     widthFactor: 2,
-    child: Image.asset(image.thumbnail,
+    child: Image.network(image,
     fit: BoxFit.fitHeight),
   ),
     );

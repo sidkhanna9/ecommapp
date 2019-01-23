@@ -43,7 +43,7 @@ return DropdownButton<int>(
             hint: new Text("Select Quantity"),
 
             items: new List<DropdownMenuItem<int>>.generate(
-          gb.product.,
+          gb.product.merchantName.length,
           (int index) => new DropdownMenuItem<int>(
                 value: index,
                 child: new Text(index.toString()),
