@@ -37,24 +37,6 @@ class ProductDetailPage extends StatelessWidget{
       ),
     );
   }
-
-Widget _createDropDown(){
-return DropdownButton<int>(
-            hint: new Text("Select Quantity"),
-
-            items: new List<DropdownMenuItem<int>>.generate(
-          gb.product.,
-          (int index) => new DropdownMenuItem<int>(
-                value: index,
-                child: new Text(index.toString()),
-              ),
-        ),
-        onChanged: (int value) {
-          this.itemSelect=value;
-        },
-        value:itemSelect,
-        );
-}
   Widget _buildInfo(){
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, left: 16.0, right:16.0),
@@ -91,21 +73,35 @@ return DropdownButton<int>(
 
           DropdownButton<String>(
             hint: new Text("Select Merchant"),
-
+            isExpanded: true,
             items: new List<DropdownMenuItem<String>>.generate(
           gb.product.merchantName.length,
           (int index) => new DropdownMenuItem<String>(
                 value: gb.product.merchantName[index]+"("+gb.product.cost[index].toString()+
-                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString()+"\tRating:"+gb.product.merchantrating[index].toString(),
+                ")\nQuantity:"+gb.product.quantityLeftMerchant[index].toString()+"\tRating:"
+                +gb.product.merchantrating[index].toString(),
                 child: new Text(index.toString()),
               ),
+        
+        
         ),
-        onChanged: (String value) {
+        onChanged: (String  value) {
           this.itemSelect=value;
-          _createDropDown();
         },
         value:itemSelect,
         ),
+        new TextFormField(
+                  // focusNode: fn,
+                  // onFieldSubmitted: (term){
+                  //   FocusScope.of(context).requestFocus(new FocusNode());
+                  // },
+                  // controller: passwordController,
+                    decoration: new InputDecoration(
+                      labelText : "Enter Password",
+                    ),
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                ),
           Text(
             "Description:\n"+gb.product.description+"Features:\n"+gb.product.features,
             style: TextStyle(
