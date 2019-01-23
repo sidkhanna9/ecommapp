@@ -1,8 +1,10 @@
 
 import 'dart:convert';
 
+import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ecomapp/themedata/Theme.dart' as theme;
 
 class Cart extends StatefulWidget{
 
@@ -13,36 +15,41 @@ CartState createState() => new CartState();
 class CartState extends State<Cart>{
 
 Map data;
-static String token="thesidkhanna@gmail.com";
-String url="http://10.177.7.88:7000/cart/get?token="+token;
+String url=gb.getCartURL+gb.token;
+
 Future<String> getData() async{
   
   http.Response response= await http.get(
     Uri.encodeFull(url),
     
-  headers:{
-    "Accept": "application/json"
-  }
+  headers:gb.getHeader
   );
 
 print(url);
   this.setState((){
-data = json.decode(response.body)[0];
+data = json.decode(response.body);
   });
-  print(data["product"][0]["imageUrl"]);
+  print(data);
   return "SUCCESS";
 }
-
 @override
-Future initState()  => this.getData();
+  void initState() {
+    super.initState();
+    getData();
+
+  }
+// @override
+// Future initState()  => this.getData();
 @override
 Widget build(BuildContext context)
 {
   return new MaterialApp(
     home: new Scaffold(
     appBar: new AppBar(
-      title: new Text("Wishlist")
+      backgroundColor: theme.Colors.themeColor,
+      title: new Text("Wishlist"),
     ),
+
     body: new ListView.builder(
       itemCount: data == null ? 0 : data["product"].length,
       itemBuilder: (BuildContext context,int index){
@@ -52,7 +59,7 @@ Widget build(BuildContext context)
             children:<Widget>[
                new Row(
                  children:<Widget>[
-                 new Image.network(data["product"][index]["imageUrl"], 
+                 new Image.network(data["product"][index]["imageSrc"], 
                 // new Image.asset("assets/cool-htc-one-wallpapers-4310228.png", 
                   fit: BoxFit.fitHeight,
                   height: 150.0,
@@ -61,7 +68,7 @@ Widget build(BuildContext context)
                  children:<Widget>[
                   new Text(data["product"][index]["productName"],
                   ),
-             new Text(data["product"][index]["productRating"].toString()),
+             new Text(data["product"][index]["price"].toString()),
                  ]
               )
                  ]

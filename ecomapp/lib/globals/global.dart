@@ -19,7 +19,7 @@ String productId;
 String laptopURL=hostip+"/categories",accPhone=hostip+"/categories",phoneURL=hostip+"/categories",furnitureURL=hostip+"/categories",watchURL=hostip+"/categories",clothURL=hostip+"/categories",shoeURL=hostip+"/categories",jewelry=hostip+"/categories";
 String addToCartURL=hostip+":7000/cart/item/add/";
 String merchantUrl=hostip+":5000/merchant/get?merchantId=";
-String token;
+String token="sachin7@gmail.com";
 String getCartURL=hostip+":7000/cart/get?token=";
 
 Map<String,String> postHeader={

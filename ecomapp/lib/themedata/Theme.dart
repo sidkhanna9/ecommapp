@@ -11,14 +11,15 @@ class Colors {
   static const Color appBarGradientStart = const Color(0xFF3383FC);
   static const Color appBarGradientEnd = const Color(0xFF00C6FF);
 
+  static const Color themeColor = const Color(0xFFFFFFFF);
   //static const Color productCard = const Color(0xFF434273);
-  static const Color productCard = const Color(0xFF8685E5);
+  static const Color productCard = const Color(0XFFECEFF1);
   //static const Color productListBackground = const Color(0xFF3E3963);
-  static const Color productPageBackground = const Color(0xFF736AB7);
-  static const Color productTitle = const Color(0xFFFFFFFF);
-  static const Color productCategory = const Color(0x66FFFFFF);
-  static const Color productBestPrice = const Color(0x66FFFFFF);
-  static const Color productRating = const Color(0x66FFFFFF);
+  static const Color productPageBackground = const Color(0xFF78909C);
+  static const Color productTitle = const Color(0xDD000000);
+  static const Color productCategory = const Color(0xDD000000);
+  static const Color productBestPrice = const Color(0xDD000000);
+  static const Color productRating = const Color(0xDD000000);
   
 
 }

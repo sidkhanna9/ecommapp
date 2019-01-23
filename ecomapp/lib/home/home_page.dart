@@ -31,8 +31,8 @@ void dispose(){
   @override
   Widget build(BuildContext context) {
     
-    return new Scaffold(
-
+    return new MaterialApp(
+home:new Scaffold(
       bottomNavigationBar:  new Container(
         color: Colors.teal,
         child: new TabBar(
@@ -58,7 +58,7 @@ void dispose(){
           new contact.Contact(),
         ]
       )
-    );
+       )   );
     
     
   }
