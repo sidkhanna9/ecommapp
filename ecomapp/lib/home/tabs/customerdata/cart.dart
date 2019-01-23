@@ -16,7 +16,8 @@ CartState createState() => new CartState();
 class CartState extends State<Cart>{
 
 Map data;
-String url=gb.getCartURL+gb.token;
+
+String url=gb.getCartURL+gb.session.emailId;
 
 Future<String> getData() async{
   

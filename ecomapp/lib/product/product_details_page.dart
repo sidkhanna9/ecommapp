@@ -158,7 +158,7 @@ qInt = int.parse(quantityController.text);
 assert(qInt is int);
 }
 if(costA==null){
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Select a merchant",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -169,7 +169,7 @@ if(costA==null){
   return null;
 }
 else if(qInt>myInt){
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Maximum quantity "+myInt,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -206,7 +206,7 @@ var jsonData=json.decode(response.body);
  
 if(jsonData['status']=="SUCCESS")
 {
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Successfully added",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -218,7 +218,7 @@ if(jsonData['status']=="SUCCESS")
  
 }
 else{
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Login Failed"  +jsonData['message'],
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,

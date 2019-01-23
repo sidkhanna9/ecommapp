@@ -119,7 +119,7 @@ print(jsonData['status']);
 if(status == 200)
 {
   
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "inserted"  ,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,

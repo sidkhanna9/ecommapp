@@ -17,7 +17,7 @@ String searchURL=hostip+":3000/search/all/";
 String searchQuery;
 String productFetchUrl=hostip+":4000/product/get/";
 String productId;
-String laptopURL=hostip+"/categories",accPhone=hostip+"/categories",phoneURL=hostip+"/categories",furnitureURL=hostip+"/categories",watchURL=hostip+"/categories",clothURL=hostip+"/categories",shoeURL=hostip+"/categories",jewelry=hostip+"/categories";
+String laptopURL=hostip+"/category/electronics.jpg",accPhone=hostip+"/category/phone_accessories.jpg",phoneURL=hostip+"/category/phone.jpg",furnitureURL=hostip+"/category/furniture.jpg",watchURL=hostip+"/category/watches",clothURL=hostip+"/category/clothing.jpg",shoeURL=hostip+"/category/shoes.jpg",jewelry=hostip+"/category/jewellery.jpg";
 String addToCartURL=hostip+":7000/cart/item/add/";
 String merchantUrl=hostip+":5000/merchant/get?merchantId=";
 String token;

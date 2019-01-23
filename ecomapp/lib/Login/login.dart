@@ -81,7 +81,7 @@ Future<bool> _onWillPop() {
 // 'password':passwordController.text
 // };
 if(emailController.text==""){
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Email is required",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -92,7 +92,7 @@ if(emailController.text==""){
   
 }
 if(passwordController.text==""){
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Password is required",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -126,7 +126,7 @@ if(jsonData['status']=="SUCCESS")
 {
   gb.session.emailId=emailController.text;
   gb.session.password=passwordController.text;
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Login Success",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -147,7 +147,7 @@ if(jsonData['status']=="SUCCESS")
 
 }
 else{
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "Login Failed"  +jsonData['message'],
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,

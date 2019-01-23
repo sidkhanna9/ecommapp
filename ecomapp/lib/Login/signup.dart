@@ -80,7 +80,7 @@ print(jsonData['status']);
 if(status == "SUCCESS")
 {
   
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "SignUp Successful Login to continue"  ,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
@@ -96,7 +96,7 @@ else
 {
     
 
-  Fluttertoast.showToast(
+  Fluttertoast.instance.showToast(
         msg: "SignUp Failed"  +jsonData['message'],
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,

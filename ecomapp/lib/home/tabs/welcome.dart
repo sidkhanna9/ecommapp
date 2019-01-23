@@ -149,7 +149,7 @@ Navigator.of(context).push(MaterialPageRoute(builder: (context){
   
   }
   else{
-Fluttertoast.showToast(
+Fluttertoast.instance.showToast(
         msg: "Enter Search Query"  ,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
