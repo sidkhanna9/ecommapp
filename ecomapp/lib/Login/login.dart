@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ecomapp/Login/signup.dart';
 import 'package:ecomapp/globals/global.dart' as gb;
+import 'package:ecomapp/home/tabs/customerdata/account.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -124,8 +125,15 @@ var jsonData=json.decode(response.body);
 
 if(jsonData['status']=="SUCCESS")
 {
+  http.Response response2=await http.get(Uri.encodeFull(gb.hostip+gb.userDetail+emailController.text),
+  headers: gb.getHeader
+  );
+  var jsonData2=json.decode(response2.body);
   gb.session.emailId=emailController.text;
   gb.session.password=passwordController.text;
+  gb.session.lastName=jsonData2['lastName'];
+  gb.session.firstName=jsonData2['firstName'];
+  gb.session.phoneNumber=jsonData2['phoneNumber'];
   Fluttertoast.instance.showToast(
         msg: "Login Success",
         toastLength: Toast.LENGTH_SHORT,

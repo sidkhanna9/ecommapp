@@ -15,10 +15,7 @@ CartState createState() => new CartState();
 
 class CartState extends State<Cart>{
 
-Map data;
-
 String url=gb.getCartURL+gb.session.emailId;
-
 Future<String> getData() async{
   
   http.Response response= await http.get(
@@ -27,11 +24,13 @@ Future<String> getData() async{
   headers:gb.getHeader
   );
 
-print(url);
+
+print("\n\n\n"+response.toString());
+
   this.setState((){
-data = json.decode(response.body);
+gb.data = json.decode(response.body);
   });
-  print(data);
+  print(gb.data);
   return "SUCCESS";
 }
 @override
@@ -40,8 +39,6 @@ data = json.decode(response.body);
     getData();
 
   }
-// @override
-// Future initState()  => this.getData();
 @override
 Widget build(BuildContext context)
 {
@@ -54,7 +51,7 @@ Widget build(BuildContext context)
     ),
 
     body: new ListView.builder(
-      itemCount: data == null ? 0 : data["product"].length,
+      itemCount: gb.data == null ? 0 : gb.data["product"].length,
       itemBuilder: (BuildContext context,int index){
          return new Card(
           //child: new Text(data[index]["productId"]),
@@ -62,19 +59,20 @@ Widget build(BuildContext context)
             children:<Widget>[
                new Row(
                  children:<Widget>[
-                 new Image.network(data["product"][index]["imageSrc"], 
+                 new Image.network(gb.data["product"][index]["imageSrc"], 
                   fit: BoxFit.fitHeight,
                   height: 150.0,
                   width: 150.0,),
                   new Column(
                  children:<Widget>[
-                  new Text(data["product"][index]["productName"],
+                  new Text(gb.data["product"][index]["productName"],
                   ),
-             new Text(data["product"][index]["price"].toString()),
-             new Text(data["product"][index]["quantity"].toString()),
+             new Text(gb.data["product"][index]["price"].toString()),
+             new Text(gb.data["product"][index]["quantity"].toString()),
              new RaisedButton(
               child: new Text('Place your order'),
               onPressed: () {
+                gb.index=index;
                 Navigator.push(
                   context,
                   new MaterialPageRoute(builder: (context) => new Place()),

@@ -11,6 +11,7 @@ class Colors {
   static const Color appBarGradientStart = const Color(0xFF3383FC);
   static const Color appBarGradientEnd = const Color(0xFF00C6FF);
 
+  static const Color appBarText = const Color(0xFFFFFFFF);
   static const Color themeColor = const Color(0xFFFFFFFF);
   //static const Color productCard = const Color(0xFF434273);
   static const Color productCard = const Color(0XFFECEFF1);
@@ -36,7 +37,7 @@ class TextStyles {
   const TextStyles();
 
   static const TextStyle appBarTitle = const TextStyle(
-    color: Colors.appBarTitle,
+    color: Colors.appBarText,
     fontFamily: 'Poppins',
     //fontWeight: FontWeight.w600,
      fontSize: 24.0

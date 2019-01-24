@@ -99,26 +99,6 @@ var myInt,qInt;
             height: 1.0,
           ),
  
-        //   DropdownButton<String>(
-        //     hint: new Text("Select Merchant"),
-        //     isExpanded: true,
-        //     items: new List<DropdownMenuItem<String>>.generate(
-        //   productGlobal.merchantName.length,
-        //   (int index) => new DropdownMenuItem<String>(
-        //         value: index.toString(),
-        //         child: new Text(productGlobal.merchantName[index]+"("+productGlobal.cost[index].toString()+")\nRating:"
-        //         +productGlobal.merchantRating[index].toString()+
-        //         "\tQuantity:"+productGlobal.quantityLeftMerchant[index].toString()),
-        //       ),
-        
-        
-        // ),
-        // onChanged: (String  value) {
-        //   this.itemSelect=value;
-        //   costA=value.split(':');
-        // },
-        // value:itemSelect,
-        // ),
           Text(
             "Description:\n"+productGlobal.description+"\nFeatures:\n"+productGlobal.features,
             style: TextStyle(
@@ -240,19 +220,10 @@ else{
         fit: StackFit.expand,
         children: <Widget>[
           _buildContent()
-          //Image.asset("assets/2.jpg",fit: BoxFit.cover),
-      //     BackdropFilter(
-      //       filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-      //       child: Container(
-      //         color: Colors.white,
-      //         child: _buildContent(),
-      //     )
-      // ),
         ],
         
       ),
       bottomNavigationBar: BottomAppBar(
-        //hasNotch: false,
       child: new Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

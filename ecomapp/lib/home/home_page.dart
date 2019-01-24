@@ -56,7 +56,7 @@ home:new Scaffold(
           new cart.Cart(),          
           new welcome.Welcome(),
           new details.Details(),
-          new contact.Contact(),
+          new contact.Classy(),
         ]
       )
        )   );

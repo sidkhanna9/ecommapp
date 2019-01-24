@@ -9,49 +9,35 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:ecomapp/globals/global.dart' as gb;
 
-class Place extends StatefulWidget{
+class Place extends StatelessWidget{
 
-@override
-PlaceState createState() => new PlaceState();
-}
+// @override
+// PlaceState createState() => new PlaceState();
+// }
 
-class PlaceState extends State<Place>{
+// class PlaceState extends State<Place>{
 
 
   final addressController=TextEditingController();
 Map data;
 String url=gb.getAddress+gb.session.emailId;
 
-
-// Future<String> getData() async{
-  
-//   http.Response response= await http.get(
-//     Uri.encodeFull(url),
-//   headers:gb.getHeader
-//   );
-
-// print(url);
-//   this.setState((){
-// data = json.decode(response.body);
-// print(data['addressList'].length);
-//   });
-//   return "SUCCESS";
-// }
 Future<String> getData() async {
 
-
+print("****\n\n\n\n\n"+gb.product.toString());
 Map map = {
-    'inventoryId':"30d1af46-fb7f-41a4-8657-e3a6a73ccc43",
+    'inventoryId':gb.data['product'][gb.index]['inventoryId'],
     'customerId':gb.session.emailId,
     'address':addressController.text,
-    'quantity':1,
+    'quantity':gb.data['product'][gb.index]['quantity'],
   };
 
-http.Response response = await http.post(gb.hostip+":8080/order/new",
+http.Response response = await http.post(Uri.encodeFull(gb.hostip+gb.orderUrl),
 headers: gb.postHeader,
 body: utf8.encode(json.encode(map))
 );
 
+http.Response response1= await http.delete(Uri.encodeFull("http://10.177.7.88:7000/cart/item/delete?token="+gb.session.emailId+"&id="+gb.data['product'][gb.index]['inventoryId']));
 var jsonData=json.decode(response.body);
 //var status=jsonData['status'];
 //print(jsonData['status']);
@@ -59,37 +45,30 @@ if(response.statusCode == 200)
 {
   
   Fluttertoast.instance.showToast(
-        msg: "SignUp Successful Login to continue"  ,
+        msg: "Order placed"  ,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 2,
         backgroundColor: Colors.grey,
         textColor: Colors.white);
-          //Navigator.of(mct).pop(true);
-  
-
-}
+        }
 
 else
-{
+    {
     
 
-  Fluttertoast.instance.showToast(
-        msg: "SignUp Failed"  +jsonData['message'],
+       Fluttertoast.instance.showToast(
+        msg: "Order failed "  +jsonData['message'],
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 2,
         backgroundColor: Colors.grey,
-        textColor: Colors.white);
-       
-        
-       
+        textColor: Colors.white);     
+    }
+
 }
-} 
-@override
-void initState(){
-  this.getData();
-}
+
+
 @override
 Widget build(BuildContext context)
 {
@@ -111,10 +90,7 @@ Widget build(BuildContext context)
                   textColor: Colors.white,
                   child: new Text("Place your order"),
                   onPressed: (){
-                    getData;
-                    // Navigator.push(context, MaterialPageRoute(builder: (context){
-                    //     return Welcome();
-                    // }));
+                    getData();
                   },
                   splashColor: Colors.redAccent,
                 ),

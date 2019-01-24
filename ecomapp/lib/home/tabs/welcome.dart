@@ -6,7 +6,7 @@ import 'package:ecomapp/themedata/Theme.dart' as theme;
 import 'package:ecomapp/globals/global.dart' as gb;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:ecomapp/searchhandler/SearchList.dart' as sl;
+import 'package:ecomapp/searchhandler/SearchList.dart';
 class Welcome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -71,9 +71,9 @@ tmp.bestPrice= 0;
   print(gb.mp.first.productId);
 }
 gb.homeContext=context;
-Navigator.push(context,MaterialPageRoute(builder: (context){
+Navigator.push(context,MaterialPageRoute(builder: (context) {
 
-  return sl.SearchList();
+  return new SearchList();
 }));
   
   
@@ -141,9 +141,9 @@ tmp.outOfStock= v['outOfStock'];
   print(gb.mp.first.productId);
 }
 
-Navigator.of(context).push(MaterialPageRoute(builder: (context){
+Navigator.of(gb.homeContext).push(MaterialPageRoute(builder: (context){
 
-  return sl.SearchList();
+  return new SearchList();
 }));
   
   
