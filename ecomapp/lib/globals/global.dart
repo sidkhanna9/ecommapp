@@ -31,11 +31,8 @@ String addToCartURL=hostip+":7000/cart/item/add/";
 String merchantUrl=hostip+":5000/merchant/get?merchantId=";
 String token;
 String getCartURL=hostip+":7000/cart/get?token=";
-
 Map<String,String> postHeader={
-  
   "Content-Type":"application/json"
-
 };
 Map<String,String> getHeader={
   "Accept":"application/json"
@@ -47,16 +44,7 @@ Product product;
 String categorySearchUrl=hostip+":4000/product/category/";
 Product productGlobal;
 String getAddress=hostip+":7000/address/get?token=";
-
-
-
-
-
 String orderUrl=":13000/order/new";
 String userDetail=":8000/auth/find?emailId=";
-
-
-
-
 Map data;
 int index;

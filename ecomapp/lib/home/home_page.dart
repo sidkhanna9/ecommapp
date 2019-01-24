@@ -17,7 +17,7 @@ class HomeTabs extends State<HomePage> with SingleTickerProviderStateMixin{
 @override
 void initState(){
   super.initState();
-  tc=new TabController(vsync: this,length: 5,initialIndex: 2);
+  tc=new TabController(vsync: this,length: 4,initialIndex: 0);
 
 }
 
@@ -41,9 +41,10 @@ home:new Scaffold(
            tabs: <Tab>[
             
             
-            new Tab(icon: Icon(Icons.favorite)),
-            new Tab(icon: Icon(Icons.shopping_cart)),
+           // new Tab(icon: Icon(Icons.favorite)),
             new Tab(icon: Icon(Icons.category)),
+            new Tab(icon: Icon(Icons.shopping_cart)),
+            
             new Tab(icon: Icon(Icons.account_circle)),
             new Tab(icon: Icon(Icons.help)),
           ]
@@ -52,9 +53,10 @@ home:new Scaffold(
       body: new TabBarView(
         controller: tc,
         children: <Widget>[
-          new wishlist.Wishlist(),
-          new cart.Cart(),          
+         // new wishlist.Wishlist(),
           new welcome.Welcome(),
+          new cart.Cart(),          
+          
           new details.Details(),
           new contact.Classy(),
         ]

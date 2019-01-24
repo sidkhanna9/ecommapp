@@ -75,35 +75,35 @@ Future<bool> _onWillPop() {
   }
 
   Future<String> getData() async {
-
+print("hiiiiii");
 
 // Map<String,dynamic> jsonMap ={
 // 'email':emailController.text,
 // 'password':passwordController.text
 // };
-if(emailController.text==""){
-  Fluttertoast.instance.showToast(
-        msg: "Email is required",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 2,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white
-    );
+// if(emailController.text==""){
+//   Fluttertoast.instance.showToast(
+//         msg: "Email is required",
+//         toastLength: Toast.LENGTH_SHORT,
+//         gravity: ToastGravity.CENTER,
+//         timeInSecForIos: 2,
+//         backgroundColor: Colors.grey,
+//         textColor: Colors.white
+//     );
   
-}
-if(passwordController.text==""){
-  Fluttertoast.instance.showToast(
-        msg: "Password is required",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 2,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white
-    );
-}
+// }
+// if(passwordController.text==""){
+//   Fluttertoast.instance.showToast(
+//         msg: "Password is required",
+//         toastLength: Toast.LENGTH_SHORT,
+//         gravity: ToastGravity.CENTER,
+//         timeInSecForIos: 2,
+//         backgroundColor: Colors.grey,
+//         textColor: Colors.white
+//     );
+// }
 if(passwordController.text!="" && emailController.text!=""){
- 
+ print("hello");
 Map map={
 'emailId':emailController.text,
 'password':passwordController.text
@@ -122,7 +122,7 @@ body: utf8.encode(json.encode(map)),
 );
 
 var jsonData=json.decode(response.body);
-
+print("hiii");
 if(jsonData['status']=="SUCCESS")
 {
   http.Response response2=await http.get(Uri.encodeFull(gb.hostip+gb.userDetail+emailController.text),
@@ -142,14 +142,15 @@ if(jsonData['status']=="SUCCESS")
         backgroundColor: Colors.grey,
         textColor: Colors.white
     );
-    
-  Navigator.push(context, MaterialPageRoute(builder:(context){
+    print("waiting");
+  Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(builder: (context){
+return HomePage();
+ 
 
-
-
-
-    return HomePage();
   }));
+
+
+
 
 
 
@@ -166,12 +167,14 @@ else{
 
 } 
   }}
+ final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context){
     return new WillPopScope(
       onWillPop: ()=>_onWillPop(),
       child: new Scaffold(
+      //  context:context,
       resizeToAvoidBottomPadding: false,
       
       backgroundColor: Colors.black,
@@ -191,6 +194,7 @@ else{
                 size: _iconAnimation.value * 100,
               ),
               new Form(
+                key: _formKey,
                 child:Theme(
                   data: new ThemeData(
                     brightness: Brightness.dark,
@@ -210,6 +214,11 @@ else{
 
                 new TextFormField(
                   // focusNode: fn,
+                  validator: (value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+            },
                   onFieldSubmitted: (term){ 
                     FocusScope.of(context).requestFocus(fn);
                     },
@@ -220,6 +229,11 @@ else{
                     keyboardType: TextInputType.emailAddress,
                 ),
                 new TextFormField(
+                  validator: (value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+            },
                   focusNode: fn,
                   onFieldSubmitted: (term){
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -245,8 +259,16 @@ mainAxisSize: MainAxisSize.min,
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Login"),
-                  onPressed: getData,
+                  onPressed:(){ 
+                    if (_formKey.currentState.validate()) {
+                      print('obdfsefsefrsject');
+                    getData();
+                    }
+                    }
+                  
+                  ,
                   splashColor: Colors.redAccent,
+
 
                 )
                 ,
@@ -260,11 +282,28 @@ mainAxisSize: MainAxisSize.min,
                     }));
                   },
                   splashColor: Colors.redAccent,
-                )
+                ),
                 
             ]
                 )
                 )
+                    ,
+                    new Column(
+                  children: <Widget>[
+                   new Center(child: new RaisedButton(
+                  color: Colors.teal,
+                  textColor: Colors.white,
+                  child: new Text("Guest Login"),
+                  onPressed: (){
+                    gb.session.emailId=null;
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return HomePage();
+                    }));
+                  },
+                  splashColor: Colors.redAccent,
+                    ))],
+                )
+                    
                     ],
                 ),
                   ),

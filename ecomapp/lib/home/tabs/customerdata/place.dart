@@ -19,7 +19,7 @@ class Place extends StatelessWidget{
 
 
   final addressController=TextEditingController();
-Map data;
+//Map data;
 String url=gb.getAddress+gb.session.emailId;
 
 Future<String> getData() async {

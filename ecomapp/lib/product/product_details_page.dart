@@ -17,8 +17,20 @@ import 'package:ecomapp/themedata/Theme.dart' as theme;
   
    @required Product product;
    ProductDetailPage({this.product}){
+     productGlobal=new Product(inventoryId:product.inventoryId,
+     productId:product.productId,
+     productRating: product.productRating,
+     name:product.name ,
+     avatar:product.avatar,
+     description:product.description ,
+     features: product.features,
+     cost: product.cost,
+     merchantRating: product.merchantRating,
+     quantityLeftMerchant: product.quantityLeftMerchant,
+     imageURLList: product.imageURLList,
+     merchantId: product.merchantId,
+     merchantName: product.merchantName);
  
-     productGlobal=product;
      print(productGlobal.toString() + "hiiiiii");
    }
    

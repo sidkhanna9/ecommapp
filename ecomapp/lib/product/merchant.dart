@@ -77,7 +77,6 @@ break;
           }
           i++;
       }
-      print("lol");
         showDialog(
          // context:context,
          context:mct,

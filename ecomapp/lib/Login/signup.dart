@@ -97,7 +97,7 @@ else
     
 
   Fluttertoast.instance.showToast(
-        msg: "SignUp Failed"  +jsonData['message'],
+        msg: "SignUp Failed"  ,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIos: 2,
@@ -109,7 +109,10 @@ else
 }
 } 
 
-
+FocusNode fn=new FocusNode();
+FocusNode fn2=new FocusNode();
+FocusNode fn3=new FocusNode();
+FocusNode fn4=new FocusNode();
   @override
   Widget build(BuildContext context){
     
@@ -130,6 +133,7 @@ else
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Form(
+                
                 child:Theme(
                   data: new ThemeData(
                     brightness: Brightness.dark,
@@ -148,6 +152,14 @@ else
                       crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                      new TextFormField(
+                       onFieldSubmitted: (term){
+                         FocusScope.of(context).requestFocus(fn);
+                       },
+                       validator: (value){
+                         if(value.isEmpty){
+                           return 'This field is required';
+                         }
+                       },
                   controller: firstNameController,
                     decoration: new InputDecoration(
                       labelText: "Enter First Name",
@@ -155,6 +167,15 @@ else
                     keyboardType: TextInputType.text,
                 ),
                       new TextFormField(
+                       onFieldSubmitted: (term){
+                         FocusScope.of(context).requestFocus(fn2);
+                       },
+                        focusNode: fn,
+                        
+                       validator: (value){
+                         if(value.isEmpty){
+                           return 'This field is required';
+                         }},
                   controller: lastNameController,
                     decoration: new InputDecoration(
                       labelText: "Enter Last Name",
@@ -162,6 +183,14 @@ else
                     keyboardType: TextInputType.text,
                 ),
                 new TextFormField(
+                       onFieldSubmitted: (term){
+                         FocusScope.of(context).requestFocus(fn3);
+                       },
+                        focusNode: fn2,
+                   validator: (value){
+                         if(value.isEmpty){
+                           return 'This field is required';
+                         }},
                   controller: emailController,
                     decoration: new InputDecoration(
                       labelText: "Enter Email id",
@@ -169,6 +198,14 @@ else
                     keyboardType: TextInputType.emailAddress,
                 ),
                 new TextFormField(
+                       onFieldSubmitted: (term){
+                         FocusScope.of(context).requestFocus(fn4);
+                       },
+                        focusNode: fn3,
+                   validator: (value){
+                         if(value.isEmpty){
+                           return 'This field is required';
+                         }},
                   controller: phoneController,
                     decoration: new InputDecoration(
                       labelText: "Enter Phone no",
@@ -176,6 +213,14 @@ else
                     keyboardType: TextInputType.number,
                 ),
                 new TextFormField(
+                       onFieldSubmitted: (term){
+                         FocusScope.of(context).requestFocus(new FocusNode());
+                       },
+                        focusNode: fn4,
+                   validator: (value){
+                         if(value.isEmpty){
+                           return 'This field is required';
+                         }},
                   controller: passwordController,
                     decoration: new InputDecoration(
                       labelText : "Enter Password",
@@ -190,8 +235,11 @@ else
                   color: Colors.teal,
                   textColor: Colors.white,
                   child: new Text("Signup"),
-                  onPressed: 
-                    getData
+                  onPressed: (){
+                    
+                    getData;
+                    
+                    }
                   ,
                   splashColor: Colors.redAccent,
                 ),
