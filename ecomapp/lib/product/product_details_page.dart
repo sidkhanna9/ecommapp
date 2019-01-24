@@ -245,20 +245,26 @@ else{
                   textColor: Colors.white,
                   child: new Text("Select merchant"),
                   onPressed: (){
+                    if(session.emailId!=null){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                         return Merchant();
                     }));
+                    }
+                    else{
+                      Fluttertoast.instance.showToast(
+        msg: "Login is required",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 2,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white
+    );
+                    }
+                  
                   },
                   splashColor: Colors.redAccent,
                 ),
-          new RaisedButton(
-                  color: Colors.teal,
-                  textColor: Colors.white,
-                  child: new Text("Add to wishlist"),
-                  onPressed: (){
-                  },
-                  splashColor: Colors.redAccent,
-                )
+         
         ],
       ),
      ),
